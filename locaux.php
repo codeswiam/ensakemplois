@@ -1,3 +1,6 @@
+<?php 
+    include ("connexion.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,52 +8,47 @@
    
     <link rel="#" href="#">
 
-    <title>module</title>
+    <title>locaux</title>
 
 </head>
 <body>
 <a href="ajouterbatiment.php">ajouterbatiment</a>
 <a href="ajoutersalle.php">ajoutersalle</a>
+<?php
+echo" <table border=1>";
+
+echo" <th> batiment  </th>";
+echo" <th>salle  </th>";
+echo" <th>taux d occupation </th>";
+        $sql1 = "SELECT nombatiment FROM batiment ";
+        $result1 = mysqli_query($link,$sql1);
+        while ($batiment=mysqli_fetch_assoc($result1))
+        {
+            $bat=$batiment['nombatiment '];
+           echo" <tr>";
+           echo" <td>".$batiment['nombatiment '] ." </td>";
+        }
+   
+         $sql3="SELECT idsalle  FROM salle WHERE salle.idbatiment=batiment.idbatiment ";
+        $result3=mysqli_query($link,$sql3);
+        echo" <td>";
+        while ($salle=mysqli_fetch_assoc($result3))
+{
+            $salle=$salle['idsalle'];
+            echo" <div>".$salle['numsalle']." </div>";
+}
+echo "</td>";
+echo" </tr>";
+echo" </table>";
+?>
+
+
+</br>
+
+
+
+
+<input type="submit" value="valider" >
 </br>
 
 </br>
-
-<td>
-    <label for="batiment" >batiment</label></br>
-    <select name="batiment" >
-<?php
-include ("connexion.php");
-
-$sql1="SELECT nombatiment FROM `batiment`";
-$result1=mysqli_query($link,$sql1);
-while ($batiment=mysqli_fetch_assoc($result1))
-{
-echo '<option value='.$batiment["nombatiment"].'>';
-echo $batiment["nombatiment"];
-echo'</option>';
-}
-?>
-</td>
-
-
-<td>
-    <label for="salle" >salle</label></br>
-    <select name="salle" >
-<?php
-include ("connexion.php");
-
-$sql2="SELECT numsalle  FROM `salle`";
-$result2=mysqli_query($link,$sql2);
-while ($batiment=mysqli_fetch_assoc($result2))
-{
-echo '<option value='.$salle["numsalle"].'>';
-echo $salle["numsalle"];
-echo'</option>';
-}
-?>
-</td>
-
-
-
-
-
