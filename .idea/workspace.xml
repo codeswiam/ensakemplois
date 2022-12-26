@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9b9d0e5-f5b4-4b64-8661-6eeb2dd4a832" name="Changes" comment="l">
-      <change afterPath="$PROJECT_DIR$/connexion.php" afterDir="false" />
+    <list default="true" id="1ce36cc6-2baf-4cfb-8f4c-27622b4b1423" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/connexion.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/professeur.php" beforeDir="false" afterPath="$PROJECT_DIR$/professeur.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
