@@ -1,5 +1,9 @@
 <?php 
     include ("connexion.php");
+    session_start();
+    if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
+        $getsem = $_GET["semestre"];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -7,9 +11,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Emplois</title>
+    <script type="text/javascript">
+        function autoSubmitSem() {
+            with (window.document.form) {
+                if (semestre.selectedIndex != "S0") {
+                    window.location.href = 'acceuil.php?semestre=' + semestre.options[semestre.selectedIndex].value;
+                }
+            }
+        }
+    </script>
 </head>
 <body>
-    <h1> Affichage table 9</h1>
+    <h1> Affichage table 9 </h1>
+    <?php
+        if (isset($_SESSION['admin']))
+        {
+    ?>
+    <form action="modifieremploi.php" method="post" name="form">
+        <div>
+            <label for="semestre">Semestre:</label>
+            <select name="semestre" id="" onchange="autoSubmitSem();">
+                <option value="S0"> Sélectionner </option>
+                <?php
+                    $sql = "select * from semestre";
+                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                    while ($data = mysqli_fetch_assoc($result)) {
+                        echo ("<option value=\"{$data["idsem"]}\" ");
+                        if (isset($getsem)){
+                            if ($getsem == $data['idsem'])
+                                echo "selected";
+                        }
+                        echo ">";
+                        echo $data["nomsem"];
+                        echo'</option>';
+                    }
+                ?>
+            </select>
+        </div>
+
+        <div>
+            <label for="filiere">Filiere:</label>
+            <select name="filiere" id="">
+                <option value="FIL"> Sélectionner </option>
+                <?php
+                    if (isset($getsem) && $getsem != "S0") {
+                        $sql = "select idsem_fi, nomfiliere from filiere,sem_fi where sem_fi.idfiliere = filiere.idfiliere and idsem='".$getsem."'";
+                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                        while ($data= mysqli_fetch_assoc($result)) {
+                            echo ("<option value=\"{$data['idsem_fi']}\" ");
+                            echo ">";
+                            echo $data["nomfiliere"];
+                            echo'</option>';
+                        }
+                    }
+                ?>
+            </select>
+        </div>
+
+        <input type="submit" name="submit" value="Créer/Modifier Emploi">
+    </form>
+    <?php
+        }
+    ?>
     <?php
         $sql1 = "select * from semestre";
         $res1 = mysqli_query($link, $sql1) or die("Erreur selection semestres");
@@ -162,6 +225,7 @@
                         }
                         echo "</tr>";
                     }
+                    echo "</div>";
                     echo "</table>";
                 }
                 
