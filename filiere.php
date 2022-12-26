@@ -65,10 +65,22 @@
                     
                     // partie charge horaire
                     // requete sql qui compte le nbr de seances totales de cette filiere
-                    $sql4 = "SELECT count(idseance) as nbrseance from seance 
+                    $sql4 = "select count(idseance) as nbrseance from seance 
                     where idseance in (select idseance from seancecours where idsem_fi = '".$fil."')
                     or idseance in (select idseance from seancetd where groupetd in (select groupetd from groupetd where idsem_fi = '".$fil."'))
                     or idseance in (select idseance from seancetp where groupetp in (select groupetp from groupetp where idsem_fi = '".$fil."'))";
+                    $res4=mysqli_query($link,$sql4);
+                    if(mysqli_num_rows($res4)==0)
+                        echo"<td></td>";
+                    else{
+                        echo"<td>";
+                        while($ch=mysqli_fetch_assoc($res4)){
+                            $ch=$ch['nbrseance']*2;
+                            echo"<div>".$ch."</div>";
+                        }
+                        echo"</td>";
+
+            }
                     // mor matakhdi le resultat b fetch assoc, ila kant dik nbrseance kaysawi 0 bi ma3na filiere ma3endeha ta seance enregistrée fla base de donnees 
                     // donc diri echo<td></td> ze3ma hatb9a khawya
                     // sinon diri echo <td> w tu multiplie nbreance*2, 7it kan7esbou le nbr de jour, w diri echo l had le resultat w seddi </td>
@@ -87,23 +99,23 @@
                         }
                     
                     // partie grp tp
-                    // copie et colle l partie dyal grp td beddli hi smiyyat
+                    $sql3="select nomgrp from groupetp where idsem_fi='".$fil."'";
+                    $res3=mysqli_query($link,$sql3);
+                    if(mysqli_num_rows($res3)==0)
+                        echo"<td></td>";
+                    else{
+                        echo"<td>";
+                        while($td=mysqli_fetch_assoc($res3)){
+                            echo $td['nomgrp']." ";
+                        }
+                        echo"</td>";
+                        }
                     echo "</tr>";
                 }
             }
             
             //$sql4="select ";
-            //$res4=mysqli_query($link,$sql4);
-            /*if(mysqli_num_rows($res4)==0)
-                echo"<td></td>";
-            else{
-                echo"<td>";
-                while($ch=mysqli_fetch_assoc($res4)){
-                    echo"<div>".$ch['nomgrp']."</div>";
-                }
-                echo"</td>";
-
-            }*/
+            //
 
         }
         echo"</table>";
