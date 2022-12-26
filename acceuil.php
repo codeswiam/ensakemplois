@@ -23,7 +23,8 @@
             $res2 =  mysqli_query($link, $sql2) or die("Erreur selection filieres");
             while ($filiere= mysqli_fetch_assoc($res2)) {
                 $fil = $filiere['idsem_fi'];
-                echo "<h3>".$filiere['nomfiliere']."</h3>";
+                $nomfiliere = $filiere['nomfiliere'];
+                echo "<h3>".$nomfiliere."</h3>";
                 // creation d'une view qui contient toutes les seances de cette filiere
                 $sql = "create or replace view seancefiliere as select idseance from seance 
                 where idseance in (select idseance from seancecours where idsem_fi = '".$fil."')
@@ -33,10 +34,10 @@
                 $sql = "select * from seancefiliere";
                 $res = mysqli_query($link, $sql) or die("Erreur selection seance de filiere");
                 if (mysqli_num_rows($res) == 0) {
-                    echo "Aucun emploi disponible pour ".$filiere['nomfiliere']." de ".$nomsem."."; // cas ou on n'a aucune seance enregistrée pour cette filière
+                    echo "Aucun emploi disponible pour ".$nomfiliere." de ".$nomsem."."; // cas ou on n'a aucune seance enregistrée pour cette filière
                 } else {
                     echo "<div class=\"emploi\">";
-                    echo "<div class=\"titre\">Organisation des enseignements<br>".$nomsem."</div>"
+                    echo "<div class=\"titre\">Organisation des enseignements<br>".$nomfiliere." <span class=\"semestre\">(".$nomsem.")</span></div>";
                     echo "<table border=\"2\">";
                     echo "<th> Jour / Horaire </th>";
 
