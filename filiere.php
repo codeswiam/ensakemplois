@@ -21,22 +21,16 @@
 </nav>
     
     <h2>FILLIERE</h2>
-<table>
-    <tr>
-        <th>Filiere</th> <!-- diri semestre houwwa lewwel 3ad filiere -->
-        <th>Semestre</th> <!-- charge horaire diriha hna mor semestre w filiere-->
-        <th>Groupes td</th>
-        <th>Groupes tp</th>
-        <th>Charge horaire</th>
-
         <?php
         include ("connexion.php");
-        $sql="select nomfiliere,nomsem,groupetd.nomgrp,groupetp.nomgrp,nbretudiants
-        from filiere,sem_fi,semestre,groupetd,groupetp
-        where sem_fi.idfiliere=filiere.idfiliere 
-        and sem_fi.idsem_fi=groupetd.idsem_fi
-        and sem_fi.idsem_fi=groupetp.idsem_fi
-        and sem_fi.idsem=semestre.idsem"; // a malek 3la had la requete 9eddeha 9eddash hhhhh
+        echo"<table border=1>";
+        echo"<tr>";
+        echo"<th>Semestre</th>";
+        echo"<th>Filiere</th>"; 
+        echo"<th>Charge horaire</th>";
+        echo"<th>Groupes td</th>";
+        echo"<th>Groupes tp</th>";
+        $sql="select * from semestre"; 
         // hanti katdiri select * from semestre 
         // moraha mor makatakhdi l resultat kat7elli l boucle while dyal fetch assoc
         // west menneha katakhdi l'id sem, kat afficher le nom d sem b  echo <td> nomsem </td>
@@ -47,22 +41,60 @@
         <td> diri boucle while dyal fetch assoc dles grps tds </td>
         nefs l7aja pour les grps tps
         */
-        $result = mysqli_query($link,$sql);
-        while($data=mysqli_fetch_assoc($result)){
+        $res = mysqli_query($link,$sql);
+        while($semestre=mysqli_fetch_assoc($res)){
+            $sem= $semestre['idsem'];
             echo"<tr>";
-            echo"<td>".$data['nomfiliere']."</td>";
-            echo"<td>".$data['nomsem']."</td>";
-            echo"<td>".$data['nomgrp']."</td>";
-            echo"<td>".$data['nomgrp']."</td>";
-            echo"<td>".$data['nbretudiants']."</td>";
-            echo"</tr>";
+            echo"<td>".$semestre['nomsem']."</td>";
+            $sql1="select idsem_fi, nomfiliere from sem_fi, filiere where sem_fi.idfiliere = filiere.idfiliere and idsem='".$sem."'";
+            $res1=mysqli_query($link,$sql1);
+            if(mysqli_num_rows($res1)==0)
+                echo"<td></td>";
+            else{
+                echo"<td>";
+                while($filiere=mysqli_fetch_assoc($res1)){
+                    $fil=$filiere['idsem_fi'];
+                    echo"<div>".$filiere['nomfiliere']."<div>";
+                    $sql2="select nomgrp from groupetd where idsem_fi='".$fil."'";
+                    $res2=mysqli_query($link,$sql2);
+                    if(mysqli_num_rows($res2)==0)
+                        echo"<td></td>";
+                    else{
+                        echo"<td>";
+                        while($td=mysqli_fetch_assoc($res2)){
+                            echo"<div>".$td['nomgrp']."</div>";
+                        }
+                        echo"</td>";
+                        }
+                    
+                    }
+                echo"</td>"; 
+                
+
+            }
+            
+            //$sql4="select ";
+            //$res4=mysqli_query($link,$sql4);
+            /*if(mysqli_num_rows($res4)==0)
+                echo"<td></td>";
+            else{
+                echo"<td>";
+                while($ch=mysqli_fetch_assoc($res4)){
+                    echo"<div>".$ch['nomgrp']."</div>";
+                }
+                echo"</td>";
+
+            }*/
+            
+
+
+        echo"</tr>";
 
         }
-
+        echo"</table>";
         ?>
 
-    </tr>
-    <table>
+    
 
 
     
