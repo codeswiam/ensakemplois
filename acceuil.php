@@ -35,6 +35,8 @@
                 if (mysqli_num_rows($res) == 0) {
                     echo "Aucun emploi disponible pour ".$filiere['nomfiliere']." de ".$nomsem."."; // cas ou on n'a aucune seance enregistrée pour cette filière
                 } else {
+                    echo "<div class=\"emploi\">";
+                    echo "<div class=\"titre\">Organisation des enseignements<br>".$nomsem."</div>"
                     echo "<table border=\"2\">";
                     echo "<th> Jour / Horaire </th>";
 
