@@ -1,3 +1,6 @@
+<?php 
+    include ("connexion.php"); // had include kandiroha merra we7da hna w makan3awdoush ndirouha ga3 f le fichier kamel
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,29 +17,27 @@
 
 </br>
 
+<!-- rahe katdiri <table> <tr> 3ad katbday tsaybi fles <td>, shofi l cours dyal html-->
+
 <td>
     <label for="semestre" >semestre</label></br>
     <select name="semestre" >
-<?php
-include ("connexion.php");
-
- $sql1="SELECT * FROM `semestre`";
-$result1=mysqli_query($link,$sql1);
-while ($semestre=mysqli_fetch_assoc($result1))
-{
-echo '<option value='.$semestre["idsem"].'>';
-echo $semestre["idsem"];
-echo'</option>';
-}
-?>
-</select>
+    <?php
+        $sql1 = "SELECT * FROM semestre ";
+        $result1 = mysqli_query($link,$sql1);
+        while ($semestre=mysqli_fetch_assoc($result1))
+        {
+            echo '<option value='.$semestre["idsem"].'>'; // hada rahe mashi un formulaire bash tdiri option, khessek hi t afficher les noms d semestres
+            echo $semestre["idsem"]; 
+            echo'</option>';
+        }
+    ?>
+    </select>
 </td>
-</br>
 <td>
     <label for="module" >module</label></br>
     <select name="module" >
 <?php
-include ("connexion.php");
 $semes=$semestre["idsem"];
  $sql3="SELECT nommodule  FROM `module` WHERE semestre='.$semes.'";
 $result3=mysqli_query($link,$sql3);
@@ -59,7 +60,6 @@ echo'</option>';
     <label for="prof" >prof</label></br>
     <select name="prof" >
 <?php
-include ("connexion.php");
  $sql2="SELECT nom FROM `prof` WHERE ";
 $result2=mysqli_query($link,$sql2);
 while ($prof=mysqli_fetch_assoc($result2))
