@@ -30,6 +30,7 @@
         echo"<th>Charge horaire</th>";
         echo"<th>Groupes td</th>";
         echo"<th>Groupes tp</th>";
+        echo "</tr>";
         $sql="select * from semestre"; 
         // hanti katdiri select * from semestre 
         // moraha mor makatakhdi l resultat kat7elli l boucle while dyal fetch assoc
@@ -44,17 +45,35 @@
         $res = mysqli_query($link,$sql);
         while($semestre=mysqli_fetch_assoc($res)){
             $sem= $semestre['idsem'];
-            echo"<tr>";
-            echo"<td>".$semestre['nomsem']."</td>";
+
             $sql1="select idsem_fi, nomfiliere from sem_fi, filiere where sem_fi.idfiliere = filiere.idfiliere and idsem='".$sem."'";
             $res1=mysqli_query($link,$sql1);
-            if(mysqli_num_rows($res1)==0)
-                echo"<td></td>";
-            else{
-                echo"<td>";
+            $numfil = mysqli_num_rows($res1);
+            if($numfil==0){
+                echo "<tr><td>".$semestre['nomsem']."</td>";
+                echo "<td></td>"; // ce sem n'a pas de filiere
+                echo "<td></td>"; // pas de filiere donc pas de charge horaire
+                echo "<td></td>"; // pas de filiere donc pas de grp td
+                echo "<td></td>"; // pas de filiere donc pas de grp tp
+                echo "</tr>";
+            } else {
+                echo"<tr>";
+                echo "<td rowspan='".$numfil."'>".$semestre['nomsem']."</td>";
                 while($filiere=mysqli_fetch_assoc($res1)){
                     $fil=$filiere['idsem_fi'];
-                    echo"<div>".$filiere['nomfiliere']."<div>";
+                    echo "<td>".$filiere['nomfiliere']."</td>";
+                    
+                    // partie charge horaire
+                    // requete sql qui compte le nbr de seances totales de cette filiere
+                    $sql4 = "SELECT count(idseance) as nbrseance from seance 
+                    where idseance in (select idseance from seancecours where idsem_fi = '".$fil."')
+                    or idseance in (select idseance from seancetd where groupetd in (select groupetd from groupetd where idsem_fi = '".$fil."'))
+                    or idseance in (select idseance from seancetp where groupetp in (select groupetp from groupetp where idsem_fi = '".$fil."'))";
+                    // mor matakhdi le resultat b fetch assoc, ila kant dik nbrseance kaysawi 0 bi ma3na filiere ma3endeha ta seance enregistrée fla base de donnees 
+                    // donc diri echo<td></td> ze3ma hatb9a khawya
+                    // sinon diri echo <td> w tu multiplie nbreance*2, 7it kan7esbou le nbr de jour, w diri echo l had le resultat w seddi </td>
+                    
+                    // partie grp td
                     $sql2="select nomgrp from groupetd where idsem_fi='".$fil."'";
                     $res2=mysqli_query($link,$sql2);
                     if(mysqli_num_rows($res2)==0)
@@ -62,15 +81,15 @@
                     else{
                         echo"<td>";
                         while($td=mysqli_fetch_assoc($res2)){
-                            echo"<div>".$td['nomgrp']."</div>";
+                            echo $td['nomgrp']." ";
                         }
                         echo"</td>";
                         }
                     
-                    }
-                echo"</td>"; 
-                
-
+                    // partie grp tp
+                    // copie et colle l partie dyal grp td beddli hi smiyyat
+                    echo "</tr>";
+                }
             }
             
             //$sql4="select ";
@@ -85,10 +104,6 @@
                 echo"</td>";
 
             }*/
-            
-
-
-        echo"</tr>";
 
         }
         echo"</table>";
