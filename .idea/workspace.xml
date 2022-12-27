@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ce36cc6-2baf-4cfb-8f4c-27622b4b1423" name="Changes" comment="last">
-      <change afterPath="$PROJECT_DIR$/images/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/ergouyeg.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/test.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajouterprof.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajouterprof.php" afterDir="false" />
-    </list>
+    <list default="true" id="1ce36cc6-2baf-4cfb-8f4c-27622b4b1423" name="Changes" comment="last" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +44,7 @@
       <updated>1671986467474</updated>
       <workItem from="1671986479276" duration="904000" />
       <workItem from="1672087132585" duration="1007000" />
-      <workItem from="1672164594765" duration="2898000" />
+      <workItem from="1672164594765" duration="3219000" />
     </task>
     <task id="LOCAL-00001" summary="l">
       <created>1671986661874</created>
@@ -87,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672165615892</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="last">
+      <created>1672167716268</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1672167716268</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
