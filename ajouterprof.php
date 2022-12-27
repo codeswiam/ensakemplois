@@ -9,7 +9,7 @@
         text-decoration: underline;
     }
     input{
-        width: 500px;
+        width: 501px;
     }
 </style>
 <link rel="stylesheet" href="style.css">
