@@ -21,14 +21,21 @@
      diri une boucle b7al lli mwalfin kandiro m3a les listes melli kannakhdo les valeurs
      men lbase de donnees, hi houwwa f blast matdiri dik select w option katdiri input type checkbox
      w west l value kaykounou les idsem w dakshi lli kayt afficha houwwa le nomsem -->
-    <input type="checkbox" name="sem[]" value="S5">s5</br>
-    <input type="checkbox" name="sem[]" value="S6">s6</br>
-    <input type="checkbox" name="sem[]" value="S7">s7</br>
-    <input type="checkbox" name="sem[]" value="S8">s8</br>
-    <input type="checkbox" name="sem[]" value="S9">s9</br>
-    <input type="checkbox" name="sem[]" value="S10">s10</br>
-
-<input type="submit" name="submi" value="envoyer">
+     <?php
+        include("connexion.php");
+            $sql1="select * from semestre";
+            $result1=mysqli_query($link,$sql1);
+            while ($liste1=mysqli_fetch_assoc($result1))
+            {
+            echo '<input type="checkbox" name="sem[]" value='.$liste1["idsem"].'>';
+            echo $liste1["nomsem"];
+            echo'</option>';
+            }
+            ?>
+    </br>
+    <label >Nombre d'etudiants </label></br>
+    <input type="text" name="nbr"></br>
+<input type="submit" name="submit" value="envoyer">
 
 
 </form>
@@ -38,18 +45,27 @@
 
 <?php
 include ("connexion.php");
-// if isset $_POST['submit'] katkoun hiyya la condition bash tebday takhdi les valeurs kamline, donc khesseha tkoun hna
+if(isset($_POST['submit'])){
 $nom=$_POST["nom"];
 $abv=$_POST["abv"];
+$choix=$_POST["sem"];
+$nbr=$_POST["nbr"];
+$sql1="insert into filiere values ('".$abv."','".$nom."')";
+$result1 = mysqli_query($link,$sql1);
+print_r($choix);
+ foreach($choix as $value){
+    echo $value;
+    $sql="insert into sem_fi values(NULL,'$value','$abv','$nbr')";
+    $result = mysqli_query($link,$sql);
 
+
+ }
 /* hna katdiri $sql = "insert into filiere values (idfiliere, nomfiliere)"
  lmhm katkhshi les variables diri concatenation w dak l3jeb
  w sf katdiri $result = mysqli_query...*/
 
-$choix=$_POST["sem"];
-if(isset($_POST["submit"])){ // hadi khesseha tkoun 9bel koulshi
-    $sql1="insert into ";
-    $result1 = mysqli_query($link,$sql1);
+
+
 }
 // shoufi l'exemple lli sifet lik 3la hadshi dyal choix multiples
 /* west la boucle foreach, mor makatkhdi la valeur dyal sem

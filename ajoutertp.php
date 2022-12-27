@@ -61,24 +61,22 @@ if (isset($_POST['ajouter'])){
     echo $sem;
     $nom=$_POST['nom'];
     echo $nom;
-    $sql3="select idsem_fi from sem_fi where idsem='".$sem."' and idfiliere='".$fi."'";
-    // dayman diri la concatenation c mieux
-    $result3 = mysqli_query($link,$sql3) or die("Echec semfi");
-    while($data=mysqli_fetch_assoc($result3)){
+    $sql4="select idsem_fi from sem_fi where idsem='".$sem."' and idfiliere='".$fi."'";
+    $result4 = mysqli_query($link,$sql4) or die("Echec semfi");
+    while($data4=mysqli_fetch_assoc($result4)){
         echo "on a selectionné l'idsem";
-        $semfi=$data['idsem_fi'];
+        $semfi=$data4['idsem_fi'];
         echo $semfi;
-        $sql2="insert into groupetd values(NULL,'".$semfi."','".$nom."')";
-        $result2 = mysqli_query($link,$sql2) or die("Echec groupetd");
+        $sql2="insert into groupetp values(NULL,'".$semfi."','".$nom."')";
+        $result2 = mysqli_query($link,$sql2) or die("Echec groupetp");
     }
     if($result2==true){
         echo'<a href="filiere.php" >Retour</a></br>';
         echo'<a href="ajoutertd.php" >Ajouter un autre groupe</a></br>';
     }
-// la faute lli kounti dayra hna houwwa annaho dik sql2 w result 2 makountish khashyahoum fel while
-//idsem_fi kounti katbaha idem_fi
-// w dik isset ($_POST['submit'] daymane diriha 9bel matakhdi awal variable)
+
 }   
+
 
 
 
