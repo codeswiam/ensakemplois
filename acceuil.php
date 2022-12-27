@@ -22,83 +22,165 @@
     </script>
 </head>
 <body>
-    <h1> Affichage table 9 </h1>
+
+    <nav> 
+        <ul>
+            <li>logo ensa</li>
+            <li><a href="acceuil.php">Acceuil</a></li>
+            <?php
+                if (isset($_SESSION['admin']))
+                {
+            ?>
+                    <li><a href="filiere.php">Filières</a></li>
+                    <li><a href="module.php">Modules</a></li>
+                    <li><a href="professeur.php">Professeurs</a></li>
+                    <li><a href="locaux.php">Locaux</a></li>
+            <?php
+                }
+            ?>
+            <li><a href="seconnecter.php">Se connecter</a></li>
+        </ul>
+    </nav>
+
+    <h1> Acceuil 2 </h1>
+
     <?php
         if (isset($_SESSION['admin']))
         {
     ?>
-    <form action="modifieremploi.php" method="post" name="form">
-        <div>
-            <label for="semestre">Semestre:</label>
-            <select name="semestre" id="" onchange="autoSubmitSem();">
-                <option value="S0"> Sélectionner </option>
-                <?php
-                    $sql = "select * from semestre";
-                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                    while ($data = mysqli_fetch_assoc($result)) {
-                        echo ("<option value=\"{$data["idsem"]}\" ");
-                        if (isset($getsem)){
-                            if ($getsem == $data['idsem'])
-                                echo "selected";
-                        }
-                        echo ">";
-                        echo $data["nomsem"];
-                        echo'</option>';
-                    }
-                ?>
-            </select>
-        </div>
+            <div> <h2> Modifier Emploi </h2>
+                <form action="modifieremploi.php" method="post" name="form">
+                    <div>
+                        <label for="semestre">Semestre:</label>
+                        <select name="semestre" id="" onchange="autoSubmitSem();">
+                            <option value="S0"> Sélectionner </option>
+                            <?php
+                                $sql = "select * from semestre";
+                                $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                while ($data = mysqli_fetch_assoc($result)) {
+                                    echo ("<option value=\"{$data["idsem"]}\" ");
+                                    if (isset($getsem)){
+                                        if ($getsem == $data['idsem'])
+                                            echo "selected";
+                                    }
+                                    echo ">";
+                                    echo $data["nomsem"];
+                                    echo'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
 
-        <div>
-            <label for="filiere">Filiere:</label>
-            <select name="filiere" id="">
-                <option value="FIL"> Sélectionner </option>
-                <?php
-                    if (isset($getsem) && $getsem != "S0") {
-                        $sql = "select idsem_fi, nomfiliere from filiere,sem_fi where sem_fi.idfiliere = filiere.idfiliere and idsem='".$getsem."'";
-                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                        while ($data= mysqli_fetch_assoc($result)) {
-                            echo ("<option value=\"{$data['idsem_fi']}\" ");
-                            echo ">";
-                            echo $data["nomfiliere"];
-                            echo'</option>';
-                        }
-                    }
-                ?>
-            </select>
-        </div>
+                    <div>
+                        <label for="filiere">Filiere:</label>
+                        <select name="filiere" id="">
+                            <option value="FIL"> Sélectionner </option>
+                            <?php
+                                if (isset($getsem) && $getsem != "S0") {
+                                    $sql = "select idsem_fi, nomfiliere from filiere,sem_fi where sem_fi.idfiliere = filiere.idfiliere and idsem='".$getsem."'";
+                                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                    while ($data= mysqli_fetch_assoc($result)) {
+                                        echo ("<option value=\"{$data['idsem_fi']}\" ");
+                                        echo ">";
+                                        echo $data["nomfiliere"];
+                                        echo'</option>';
+                                    }
+                                }
+                            ?>
+                        </select>
+                    </div>
 
-        <input type="submit" name="submit" value="Créer/Modifier Emploi">
-    </form>
+                    <input type="submit" name="submit" value="Créer/Modifier Emploi">
+                </form>
+            </div>
     <?php
         }
     ?>
+
+    <?php
+        if (isset($_SESSION['prof']))
+        {
+    ?>
+    <div> <h2> Programmer un rattrapage </h2>
+        <form action="rattrapage.php" method="post" name="form">
+            <div>
+                <label for="semestre">Semestre:</label>
+                <select name="semestre" id="" onchange="autoSubmitSem();">
+                    <option value="S0"> Sélectionner </option>
+                    <?php
+                        $sql = "select * from semestre";
+                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                        while ($data = mysqli_fetch_assoc($result)) {
+                            echo ("<option value=\"{$data["idsem"]}\" ");
+                            if (isset($getsem)){
+                                if ($getsem == $data['idsem'])
+                                    echo "selected";
+                            }
+                            echo ">";
+                            echo $data["nomsem"];
+                            echo'</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+
+            <div>
+                <label for="filiere">Filiere:</label>
+                <select name="filiere" id="">
+                    <option value="FIL"> Sélectionner </option>
+                    <?php
+                        if (isset($getsem) && $getsem != "S0") {
+                            $sql = "select idsem_fi, nomfiliere from filiere,sem_fi where sem_fi.idfiliere = filiere.idfiliere and idsem='".$getsem."'";
+                            $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                            while ($data= mysqli_fetch_assoc($result)) {
+                                echo ("<option value=\"{$data['idsem_fi']}\" ");
+                                echo ">";
+                                echo $data["nomfiliere"];
+                                echo'</option>';
+                            }
+                        }
+                    ?>
+                </select>
+            </div>
+
+            <input type="submit" name="submit" value="Créer/Modifier Emploi">
+        </form>
+    </div>
+    <?php
+        }
+    ?>
+    
     <?php
         $sql1 = "select * from semestre";
         $res1 = mysqli_query($link, $sql1) or die("Erreur selection semestres");
         while ($semestre= mysqli_fetch_assoc($res1)) {
             $sem = $semestre['idsem'];
             $nomsem = $semestre['nomsem'];
-            echo "<h2>".$semestre['nomsem']."</h2>";
+            
             
             // on selectionne la filiere
             $sql2 = "select idsem_fi, nomfiliere from filiere,sem_fi where sem_fi.idfiliere = filiere.idfiliere and idsem='".$sem."'";
             $res2 =  mysqli_query($link, $sql2) or die("Erreur selection filieres");
+            $sql11 = "SELECT idseance from seance, profmod, module 
+            where seance.idprofmod = profmod.idprofmod and module.idmod = profmod.idmod and module.idsem='".$sem."'";
+            $res11 =  mysqli_query($link, $sql11) or die("Erreur selection seances du semestre");
+            if (mysqli_num_rows($res11) != 0){
+                echo "<h2>".$semestre['nomsem']."</h2>";
+            } 
             while ($filiere= mysqli_fetch_assoc($res2)) {
                 $fil = $filiere['idsem_fi'];
                 $nomfiliere = $filiere['nomfiliere'];
-                echo "<h3>".$nomfiliere."</h3>";
+                
                 // creation d'une view qui contient toutes les seances de cette filiere
-                $sql = "create or replace view seancefiliere as select idseance from seance 
+                $sql = "CREATE OR REPLACE view seancefiliere as select idseance from seance 
                 where idseance in (select idseance from seancecours where idsem_fi = '".$fil."')
                 or idseance in (select idseance from seancetd where groupetd in (select groupetd from groupetd where idsem_fi = '".$fil."'))
                 or idseance in (select idseance from seancetp where groupetp in (select groupetp from groupetp where idsem_fi = '".$fil."'))";
                 $res = mysqli_query($link, $sql) or die("Erreur creation view");
                 $sql = "select * from seancefiliere";
                 $res = mysqli_query($link, $sql) or die("Erreur selection seance de filiere");
-                if (mysqli_num_rows($res) == 0) {
-                    echo "Aucun emploi disponible pour ".$nomfiliere." de ".$nomsem."."; // cas ou on n'a aucune seance enregistrée pour cette filière
-                } else {
+                if (mysqli_num_rows($res) != 0) { 
+                    echo "<h3>".$nomfiliere."</h3>";
                     echo "<div class=\"emploi\">";
                     echo "<div class=\"titre\">Organisation des enseignements<br>".$nomfiliere." <span class=\"semestre\">(".$nomsem.")</span></div>";
                     echo "<table border=\"2\">";
