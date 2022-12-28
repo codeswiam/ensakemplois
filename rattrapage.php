@@ -395,23 +395,6 @@
     <?php
         if(isset($_POST['ajoutratt']))
         {
-            // recuperation des données du semestre et filiere
-            /*$sem = $_POST['sem'];
-            $fil = $_POST['fil'];
-            $sql = "select idsem_fi from sem_fi where idsem = '".$sem."' and idfiliere = '".$fil."'";
-            $result = mysqli_query($link, $sql) or die("Erreur semfi");
-            while ($data= mysqli_fetch_assoc($result)) {
-                $semfi = $data['idsem_fi'];
-            }*/
-
-            // recuperation des données du professeur et module
-            /*$mod = $_POST['mod'];
-            $prof = $_POST['prof'];
-            $sql = "select idprofmod from profmod where idprof = '".$prof."' and idmod = '".$mod."'";
-            $result = mysqli_query($link, $sql) or die("Erreur profmod");
-            while ($data= mysqli_fetch_assoc($result)) {
-                $profmod= $data['idprofmod'];
-            }*/
 
             $profmod= $_POST['mod'];
 
