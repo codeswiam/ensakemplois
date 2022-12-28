@@ -1,18 +1,21 @@
 <?php
-    //session_start();
+    session_start();
     include ("connexion.php");
     if (!isset($_SESSION['admin'])){
         header("Location: acceuil.php");
     }
-    if (isset($_POST['emploi'])){
-        if ($_POST['semestre'] == "S0" or $_POST['filiere'] == "FIL"){
+    if (isset($_POST['emploi'])){  
+        if ($_POST['semestre'] == "S0" or $_POST['filiere'] == 0){
             echo "Veuillez selectionner un semestre et une filière";
             echo "<span class='retouracceuil'><a href='acceuil.php' class='link'>Retour</a></span>";
+            exit();
         }
         else{
             $temps = 365*24*3600;
             setcookie("semestre", $_POST['semestre'], time() + $temps);
             setcookie("filiere", $_POST['filiere'], time() + $temps);
+            $_COOKIE['semestre'] = $_POST['semestre'];
+            $_COOKIE['filiere'] = $_POST['filiere'];
         }
     }
     if (isset($_GET["mod"]) && $_GET["mod"] != 0) {
@@ -25,6 +28,16 @@
 
     if (isset($_GET["type"]) && $_GET["type"] != "TYP") {
         $typ = $_GET["type"];
+    }
+
+    if (isset($_GET["grp"]) && $_GET["grp"] != "0") {
+        $gr = $_GET["grp"];
+    }
+    if (isset($_GET["jour"])){
+        $j = $_GET["jour"];
+    }
+    if (isset($_GET["heure"])){
+        $h = $_GET["heure"];
     }
 ?>
 <!DOCTYPE html>
@@ -54,10 +67,31 @@
                 }
             }
         }
+        function autoSubmitGrp() {
+            with (window.document.form) {
+                if (grp.selectedIndex != 0) {
+                    window.location.href = 'modifieremploi.php?mod=' + mod.options[mod.selectedIndex].value + '&prof=' + prof.options[prof.selectedIndex].value + '&type=' + type.options[type.selectedIndex].value + '&grp=' + grp.options[grp.selectedIndex].value;
+                }
+            }
+        }
+        function autoSubmitJour() {
+            with (window.document.form) {
+                if (jour.selectedIndex != 0) {
+                    window.location.href = 'modifieremploi.php?jour=' + jour.options[jour.selectedIndex].value;
+                }
+            }
+        }
+        function autoSubmitHeure() {
+            with (window.document.form) {
+                if (heure.selectedIndex != 0) {
+                    window.location.href = 'modifieremploi.php?jour=' + jour.options[jour.selectedIndex].value + '&heure=' + heure.options[heure.selectedIndex].value;
+                }
+            }
+        }
     </script>
 </head>
 <body>
-    <h1> emploi 11 </h1>
+    <h1> emploi 8 </h1> 
     <!-- affichage emploi -->
     <?php
         if (isset($_COOKIE['semestre']) && isset($_COOKIE['filiere'])){
@@ -79,7 +113,13 @@
                     while ($filiere= mysqli_fetch_assoc($res2)) {
                         $nomfiliere = $filiere['nomfiliere'];
                         echo "<h3>".$nomfiliere."</h3>";
+    ?>
+                        <!-- suppression de tout l'emploi -->
+                        <form action="#" method="post">
+                            <input type="submit" name="suppemploi" value="Supprimer Emploi">
+                        </form>
 
+    <?php
                         // creation d'une view qui contient toutes les seances de cette filiere
                         $sql = "CREATE or replace view seancefiliere as select idseance from seance 
                         where idseance in (select idseance from seancecours where idsem_fi = '".$fil."') 
@@ -119,11 +159,13 @@
                                     // on selectionne la seance
                                     $sql5 = "select seance.idseance, idsalle, idprofmod, type from seance, seancefiliere where seance.idseance = seancefiliere.idseance and idjour='".$jour."' and idcreneau='".$creneau."'";
                                     $res5 = mysqli_query($link, $sql5) or die("Erreur selection seance");
-                                    if (mysqli_num_rows($res5) == 0 or $nbrseance == 0){
+                                    $nbr = mysqli_num_rows($res5); // pour le cas ou il y'a deux seances tps/tds en meme temps
+                                    if ($nbr== 0 or $nbrseance == 0){
                                             echo "<td></td>"; // cas de seance vide
                                     } else {
                                         echo "<td>";
                                         // affichage seance
+                                        $i = 1;
                                         while ($data= mysqli_fetch_assoc($res5)) {
                                             $seance = $data['idseance'];
                                             $salle = $data['idsalle'];
@@ -151,42 +193,39 @@
                                                     echo ")"; 
                                                 }
                                             }
-            
+
                                             if ($type == "TD")
                                             {
                                                 $sql7 = "select nomgrp from seancetd, groupetd
                                                 where seancetd.groupetd = groupetd.groupetd
                                                 and idseance='".$seance."'";
                                                 $res7 = mysqli_query($link, $sql7) or die("Erreur selection seancetd");
-                                                $rows = mysqli_num_rows($res7);
+                                                $sqlgrp = "select groupetd from groupetd where idsem_fi='".$fil."'";
+                                                $resgrp = mysqli_query($link, $sqlgrp) or die("Erreur selection grptd de la filiere");
+                                                $rows = mysqli_num_rows($resgrp);
                                                 if ($rows > 1){
-                                                    $i = 1;
                                                     echo "(";
                                                     while ($grp = mysqli_fetch_assoc($res7)) {
-                                                        echo $grp['nomgrp'];
-                                                        if ($i != $rows)
-                                                            echo " + ";
-                                                        $i++;                       
+                                                        echo $grp['nomgrp'];                      
                                                     }
                                                     echo ")"; 
                                                 }
                                             }
-            
+
                                             if ($type == "TP")
                                             {
                                                 $sql8 = "select nomgrp from seancetp, groupetp
                                                 where seancetp.groupetp = groupetp.groupetp
                                                 and idseance='".$seance."'";
                                                 $res8 = mysqli_query($link, $sql8) or die("Erreur selection seancetd");
-                                                $rows = mysqli_num_rows($res8);
+                                                $sqlgrp = "select groupetp from groupetp where idsem_fi='".$fil."'";
+                                                $resgrp = mysqli_query($link, $sqlgrp) or die("Erreur selection grptp de la filiere");
+                                                $rows = mysqli_num_rows($resgrp);
+                                                $rows = mysqli_num_rows($resgrp);
                                                 if ($rows > 1){
-                                                    $i = 1;
                                                     echo "(";
                                                     while ($grp = mysqli_fetch_assoc($res8)) {
-                                                        echo $grp['nomgrp'];
-                                                        if ($i != $rows)
-                                                            echo " + ";
-                                                        $i++;                       
+                                                        echo $grp['nomgrp'];                       
                                                     }
                                                     echo ")"; 
                                                 }
@@ -213,7 +252,11 @@
                                                     echo "Salle ".$nombatiment."".$numsalle;
                                                 }
                                                 echo ")</div>";             
+                                            }
+                                            if ($nbr > 1 and $i != $nbr){
+                                                echo "<div> / </div>";
                                             } 
+                                            $i++;
                                         }
                                         echo "</td>";
                                     }
@@ -229,6 +272,7 @@
         }
         
     ?>
+    <!-- ajout / modification d'une séance-->
     <form action="#" method="post" name="form">
 
         <div>
@@ -236,10 +280,9 @@
             <select name="mod" id="" required onchange="autoSubmitMod();">
                 <option value="0"> Sélectionner </option>
                 <?php
-                        $sql = "SELECT nommodule, module.idmod from module, modulefiliere, sem_fi 
+                        $sql = "SELECT nommodule, module.idmod from module, modulefiliere
                         where module.idmod = modulefiliere.idmod 
-                        and sem_fi.idsem_fi = modulefiliere.idsem_fi 
-                        and sem_fi.idsem_fi= '".$fil."'"; // why do you need sem_fi??
+                        and idsem_fi= '".$fil."'"; 
                         $result = mysqli_query($link, $sql) or die(mysqli_error($link));
                         while ($data= mysqli_fetch_assoc($result)) {
                             echo ("<option value=\"{$data['idmod']}\" ");
@@ -258,7 +301,7 @@
         <div>
             <label for="prof">Professeur:</label>
             <select name="prof" id="" required onchange="autoSubmitProf();">
-                <option value="0"> Sélectionner: </option>
+                <option value="0"> Sélectionner </option>
                 <?php
                     if (isset($module) && $module != 0) {
                         $sql = "SELECT nom, idprofmod from profmod, prof where profmod.idprof = prof.idprof and idmod='".$module."'";
@@ -304,7 +347,7 @@
                 ?>
                 <div>
                     <label for="grp">Groupe:</label>
-                    <select name="grp" id="" required>
+                    <select name="grp" id="" required onchange="autoSubmitGrp();">
                         <option value="0"> Sélectionner </option>
                         <?php
                             if ($typ == "TD")
@@ -313,7 +356,12 @@
                                 $sql = "SELECT groupetp as groupe, nomgrp from groupetp where idsem_fi = '".$fil."'";
                             $result = mysqli_query($link, $sql) or die(mysqli_error($link));
                             while ($data= mysqli_fetch_assoc($result)) {
-                                echo ("<option value=\"{$data['groupe']}\">");
+                                echo ("<option value=\"{$data['groupe']}\" ");
+                                if (isset($gr)){
+                                    if ($gr == $data['groupe'])
+                                        echo "selected";
+                                }
+                                echo ">";
                                 echo $data["nomgrp"];
                                 echo'</option>';
                             }
@@ -331,7 +379,8 @@
                     $sql = "SELECT * from jour";
                     $result = mysqli_query($link, $sql) or die(mysqli_error($link));
                     while ($data= mysqli_fetch_assoc($result)) {
-                        echo ("<option value=\"{$data['idjour']}\">");
+                        echo ("<option value=\"{$data['idjour']}\" ");
+                        echo ">";
                         echo $data["nomjour"];
                         echo'</option>';
                     }
@@ -340,13 +389,14 @@
         </div>
 
         <div>
-            <label for="creneau">Horaire:</label>
-            <select name="creneau" id="" required>
+            <label for="heure">Horaire:</label>
+            <select name="heure" id="" required>
                 <?php
                     $sql = "SELECT * from creneau";
                     $result = mysqli_query($link, $sql) or die(mysqli_error($link));
                     while ($data= mysqli_fetch_assoc($result)) {
-                        echo ("<option value=\"{$data['idcreneau']}\">");
+                        echo ("<option value=\"{$data['idcreneau']}\" ");
+                        echo ">";
                         echo $data["starttime"].' - '.$data["endtime"];
                         echo'</option>';
                     }
@@ -378,27 +428,100 @@
         <input type="submit" name="ajouter" value="Ajouter/Modifier Séance">
 
     </form>
+
+    <form action="#" method="post">
+        <!! doesnt work so do the usual checkup before submit-->
+        <div>
+            <label for="jour">Jour:</label>
+            <select name="jour" id="" onchange="autoSubmitJour();">
+                <option value="0"> Sélectionner </option>
+                <?php
+                    // on selectionne juste les jours ou la filiere ont cours
+                    $sql = "SELECT * from jour where idjour in (select idjour from seancefiliere,seance where seancefiliere.idseance=seance.idseance)";
+                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                    while ($data= mysqli_fetch_assoc($result)) {
+                        echo ("<option value=\"{$data['idjour']}\" ");
+                        if (isset($j)){
+                            if ($j == $data['idjour'])
+                                echo "selected";
+                        }
+                        echo ">";
+                        echo $data["nomjour"];
+                        echo'</option>';
+                    }
+                ?>
+            </select>
+        </div>
+
+        <div>
+            <label for="heure">Horaire:</label>
+            <select name="heure" id="" required onchange="autoSubmitHeure();">
+                <option value="0"> Sélectionner </option>
+                <?php
+                    if (isset($j)){
+                        // juste les heures ou la filiere a cours
+                        $sql = "SELECT * from creneau 
+                        where idcreneau in 
+                        (select idcreneau from seancefiliere, seance 
+                        where seancefiliere.idseance= seance.idseance 
+                        and idjour='".$j."')";
+                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                        while ($data= mysqli_fetch_assoc($result)) {
+                            echo ("<option value=\"{$data['idcreneau']}\" ");
+                            if (isset($h)){
+                                if ($h == $data['idcreneau'])
+                                    echo "selected";
+                            }
+                            echo ">";
+                            echo $data["starttime"].' - '.$data["endtime"];
+                            echo'</option>';
+                        }
+                    }  
+                ?>
+            </select>
+        </div>
+
+        <?php
+        // cas ou la filiere a plusieurs seances td/tp au meme temps
+            if (isset($j) && isset($h)){
+                $sql = "SELECT seance.idseance,type from seancefiliere, seance where seancefiliere.idseance = seance.idseance
+                and idjour='".$j."' and idcreneau='".$h."'";
+                $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+                if (mysqli_num_rows($res) != 0){
+        ?>
+                    <div>
+                    <label for="seance">Séance:</label>
+                    <select name="seance" id="" required>
+                        <?php
+                        while ($data= mysqli_fetch_assoc($res)){
+                            $seance = $data['idseance'];
+                            $type = $data['type'];
+                            if ($type == "TD")
+                                $sql = "SELECT nomgrp, type, nommodule from seance, seancetd, groupetd, profmod, module where seance.idseance = seancetd.idseance and seancetd.groupetd = groupetd.groupetd
+                                and seance.idprofmod = profmod.idprofmod and profmod.idmod = module.idmod and seance.idseance='".$seance."'";
+                            if ($typ == "TP")
+                                $sql = "SELECT nomgrp, type, nommodule from seance, seancetp, groupetp, profmod, module where seance.idseance = seancetp.idseance and seancetp.groupetp = groupetp.groupetp
+                                and seance.idprofmod = profmod.idprofmod and profmod.idmod = module.idmod and seance.idseance='".$seance."'";
+                            $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                            while ($data2= mysqli_fetch_assoc($result)) {
+                                echo ("<option value=\"{$data['seance']}\">");
+                                echo $data2["type"]." ".$data2["nomgrp"]." - ".$data2["nommodule"];
+                                echo'</option>';
+                            }
+                        ?>
+                    </select>
+                    </div>
+        <?php
+                        }
+                }
+            }
+        ?>
+        <input type="submit" name="suppseance" value="Supprimer Séance">
+    </form>
+
     <?php
         if(isset($_POST['ajouter']))
         {
-            // recuperation des données du semestre et filiere
-            /*$sem = $_POST['sem'];
-            $fil = $_POST['fil'];
-            $sql = "select idsem_fi from sem_fi where idsem = '".$sem."' and idfiliere = '".$fil."'";
-            $result = mysqli_query($link, $sql) or die("Erreur semfi");
-            while ($data= mysqli_fetch_assoc($result)) {
-                $semfi = $data['idsem_fi'];
-            }*/
-
-            // recuperation des données du professeur et module
-            /*$mod = $_POST['mod'];
-            $prof = $_POST['prof'];
-            $sql = "select idprofmod from profmod where idprof = '".$prof."' and idmod = '".$mod."'";
-            $result = mysqli_query($link, $sql) or die("Erreur profmod");
-            while ($data= mysqli_fetch_assoc($result)) {
-                $profmod= $data['idprofmod'];
-            }*/
-
             $profmod= $_POST['prof'];
 
             // recuperation des données du type de la seance et des grps tds/tps
@@ -408,7 +531,7 @@
             }
 
             $jour = $_POST['jour'];
-            $creneau = $_POST['creneau'];
+            $creneau = $_POST['heure'];
 
             // recuperation des donnees de la salle
             $bat = $_POST['batiment'];
@@ -422,16 +545,16 @@
                 $res = mysqli_query($link, $sql2) or die("Erreur insertion salle");
                 $result = mysqli_query($link, $sql) or die("Erreur trouver salle apres insertion");
             }
+            // on recupere l'id de la salle 
             while ($data = mysqli_fetch_assoc($result)) {
                 $salle = $data['idsalle'];
-            }
-
-            // traitement des données de la séance
-            if (isset($profmod) && isset($salle)){
-                // on voit premierement si la seance existe déjà (cas ou plusieurs filieres ont même seance)
-                $sql = "select idseance from seance where idjour='".$jour."' and idsalle='".$salle."' and idcreneau='".$creneau."'";
-                // peut etre qu'on a fait une erreur, si (we need to check)c'est le meme prof, c la meme seance, sinon
-                // on doit afficher que la salle est remplise a ce moment
+            }       
+            // on selectionne les seances de la filiere au meme temps
+            $sql = "SELECT seance.idseance, type from seancefiliere, seance where seancefiliere.idseance = seance.idseance and idjour='".$jour."' and idcreneau='".$creneau."'";
+            $res = mysqli_query($link, $sql) or die("Erreur trouver seance à la même heure");
+            // ajout d'une seance
+            if (mysqli_num_rows($res) == 0){
+                $sql = "select idseance from seance where idjour='".$jour."' and idsalle='".$salle."' and idcreneau='".$creneau."' and idprofmod='".$profmod."'";
                 $result = mysqli_query($link, $sql) or die("Erreur trouver seance");
                 // si la seance n'existe pas dans la bd, on la crée
                 if (mysqli_num_rows($result) == 0){
@@ -457,19 +580,64 @@
                     }
                 }
                 $result = mysqli_query($link, $sql) or die("Erreur seance cours/td/tp");
-                if ($result == true){
-                    ?>
-                    <script type="text/javascript">
-                        window.location.href = 'modifieremploi.php';
-                    </script>
-                    <?php
+            } else {
+                // modification d'une seance
+                // on supprime ceux qui existent a cette meme heure
+                while ($data= mysqli_fetch_assoc($res)){
+                    $type2 = $data['type'];
+                    $seance2 = $data['idseance'];
+                    if ($type == "Cours" or (($type == "TD" or $type == "TP") and $type2 == "Cours")){
+                        $sql= "DELETE from seance where idseance='".$seance2."'";
+                        $result = mysqli_query($link, $sql) or die("Erreur suppression seance");
+                    }
                 }
+                $sql2 = "insert into seance values (NULL, '".$salle."', '".$jour."', '".$creneau."', '".$profmod."', '".$type."')";
+                $res = mysqli_query($link, $sql2) or die("Erreur modification seance");
+                $sql = "select idseance from seance where idjour='".$jour."' and idsalle='".$salle."' and idcreneau='".$creneau."' and idprofmod='".$profmod."'";
+                $result = mysqli_query($link, $sql) or die("Erreur trouver seance apres modification");
+
+                while ($data= mysqli_fetch_assoc($result)) {
+                    $seance= $data['idseance'];
+                }
+
+                // selon le type de la seance, on enregistre l'idseance et le groupe cours/td/tp
+                if ($type == "Cours" && isset($fil))
+                {
+                    $sql = "insert into seancecours values ('".$seance."', '".$fil."')";
+                }
+                if (isset($grp)){
+                    if ($type == "TD"){
+                        $sql = "insert into seancetd values ('".$seance."', '".$grp."')";
+                    }
+                    if ($type == "TP"){
+                        $sql = "insert into seancetp values ('".$seance."', '".$grp."')";
+                    }
+                }
+                $result = mysqli_query($link, $sql) or die("Erreur seance cours/td/tp"); 
+            }
+            if ($result == true){
+                ?>
+                <script type="text/javascript">
+                    window.location.href = 'modifieremploi.php';
+                </script>
+                <?php
             }
         }
     ?>
-
-
+    <?php
+        if (isset($_POST['suppemploi'])){
+            $sql = "DELETE from seance where idseance in (select idseance from seancecours where idsem_fi = '".$fil."') 
+            or idseance in (select idseance from seancetd where groupetd in (select groupetd from groupetd where idsem_fi = '".$fil."'))
+            or idseance in (select idseance from seancetp where groupetp in (select groupetp from groupetp where idsem_fi = '".$fil."'))";
+            $res = mysqli_query($link, $sql) or die("Erreur suppression de l'emploi");
+            if ($result == true){
+                ?>
+                <script type="text/javascript">
+                    window.location.href = 'modifieremploi.php';
+                </script>
+                <?php
+            }
+        }
+    ?>
 </body>
 </html>
-
-

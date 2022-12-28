@@ -2,7 +2,8 @@
     include ("connexion.php");
     //unset($_SESSION['prof']);
     session_start();
-    echo ($_SESSION["prof"]);
+    $_SESSION['admin'] = "admin";
+    //echo ($_SESSION["prof"]);
     if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
         $getsem = $_GET["semestre"];
     }
@@ -44,7 +45,7 @@
         </ul>
     </nav>
 
-    <h1> Acceuil 2</h1>
+    <h1> Acceuil 1</h1>
 
     <?php
         if (isset($_SESSION['admin']))
@@ -76,7 +77,7 @@
                     <div>
                         <label for="filiere">Filiere:</label>
                         <select name="filiere" id="">
-                            <option value="FIL"> Sélectionner </option>
+                            <option value="0"> Sélectionner </option>
                             <?php
                                 if (isset($getsem) && $getsem != "S0") {
                                     $sql = "select idsem_fi, nomfiliere from filiere,sem_fi where sem_fi.idfiliere = filiere.idfiliere and idsem='".$getsem."'";
@@ -194,7 +195,8 @@
                             // on selectionne la seance
                             $sql5 = "select seance.idseance, idsalle, idprofmod, type from seance, seancefiliere where seance.idseance = seancefiliere.idseance and idjour='".$jour."' and idcreneau='".$creneau."'";
                             $res5 = mysqli_query($link, $sql5) or die("Erreur selection seance");
-                            if (mysqli_num_rows($res5) == 0){
+                            $nbr = mysqli_num_rows($res5); // pour le cas ou il y'a deux seances tps/tds en meme temps
+                            if ($nbr== 0){
                                     echo "<td></td>"; // cas de seance vide
                             } else {
                                 echo "<td>";
@@ -287,7 +289,10 @@
                                             echo "Salle ".$nombatiment."".$numsalle;
                                         }
                                         echo ")</div>";             
-                                    } 
+                                    }
+                                    if ($nbr > 1){
+                                        echo "<div> / </div>";
+                                    }
                                 }
                                 echo "</td>";
                             }

@@ -10,10 +10,12 @@
         if ($_POST['semfi'] == "0"){
             echo "Veuillez selectionner un semestre et une filière";
             echo "<span class='retouracceuil'><a href='acceuil.php' class='link'>Retour</a></span>";
+            exit();
         }
         else{
             $temps = 365*24*3600;
             setcookie("semfi", $_POST['semfi'], time() + $temps);
+            $_COOKIE['semfi'] = $_POST['semfi'];
         }
     }
     if (isset($_GET["jour"])){
@@ -76,7 +78,7 @@
     </script>
 </head>
 <body>
-    <h1> ratt 11 </h1>
+    <h1> ratt 1 </h1>
     <!-- affichage emploi -->
     <?php
         if (isset($_COOKIE['semfi'])){
@@ -133,7 +135,8 @@
                                 // on selectionne la seance
                                 $sql5 = "select seance.idseance, idsalle, idprofmod, type from seance, seancefiliere where seance.idseance = seancefiliere.idseance and idjour='".$jour."' and idcreneau='".$creneau."'";
                                 $res5 = mysqli_query($link, $sql5) or die("Erreur selection seance");
-                                if (mysqli_num_rows($res5) == 0 or $nbrseance == 0){
+                                $nbr = mysqli_num_rows($res5); // pour le cas ou il y'a deux seances tps/tds en meme temps
+                                if ($nbr== 0 or $nbrseance == 0){
                                         echo "<td></td>"; // cas de seance vide
                                 } else {
                                     echo "<td>";
@@ -227,7 +230,10 @@
                                                 echo "Salle ".$nombatiment."".$numsalle;
                                             }
                                             echo ")</div>";             
-                                        } 
+                                        }
+                                        if ($nbr > 1){
+                                            echo "<div> / </div>";
+                                        }
                                     }
                                     echo "</td>";
                                 }
@@ -275,7 +281,7 @@
                         where idcreneau not in 
                         (select creneau.idcreneau from creneau, seancefiliere, seance 
                         where seancefiliere.idseance= seance.idseance 
-                        and seance.idcreneau = creneau.idcreneau and idjour='".$j."')";
+                        and seance.idcreneau = creneau.idcreneau and idjour='".$j."')"; // you don't need creneau ??? seance has idcreneau
                         $result = mysqli_query($link, $sql) or die(mysqli_error($link));
                         while ($data= mysqli_fetch_assoc($result)) {
                             echo ("<option value=\"{$data['idcreneau']}\" ");
