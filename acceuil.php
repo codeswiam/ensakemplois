@@ -1,6 +1,8 @@
 <?php 
     include ("connexion.php");
+    //unset($_SESSION['prof']);
     session_start();
+    echo ($_SESSION["prof"]);
     if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
         $getsem = $_GET["semestre"];
     }
@@ -42,7 +44,7 @@
         </ul>
     </nav>
 
-    <h1> Acceuil 2 </h1>
+    <h1> Acceuil 2</h1>
 
     <?php
         if (isset($_SESSION['admin']))
@@ -90,7 +92,7 @@
                         </select>
                     </div>
 
-                    <input type="submit" name="submit" value="Créer/Modifier Emploi">
+                    <input type="submit" name="emploi" value="Créer/Modifier Emploi">
                 </form>
             </div>
     <?php
@@ -104,46 +106,31 @@
     <div> <h2> Programmer un rattrapage </h2>
         <form action="rattrapage.php" method="post" name="form">
             <div>
-                <label for="semestre">Semestre:</label>
-                <select name="semestre" id="" onchange="autoSubmitSem();">
-                    <option value="S0"> Sélectionner </option>
+                <label for="semfi">Filière:</label>
+                <select name="semfi" id="">
+                    <option value="0"> Sélectionner </option>
                     <?php
-                        $sql = "select * from semestre";
-                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                        while ($data = mysqli_fetch_assoc($result)) {
-                            echo ("<option value=\"{$data["idsem"]}\" ");
-                            if (isset($getsem)){
-                                if ($getsem == $data['idsem'])
-                                    echo "selected";
-                            }
-                            echo ">";
-                            echo $data["nomsem"];
-                            echo'</option>';
-                        }
-                    ?>
-                </select>
-            </div>
-
-            <div>
-                <label for="filiere">Filiere:</label>
-                <select name="filiere" id="">
-                    <option value="FIL"> Sélectionner </option>
-                    <?php
-                        if (isset($getsem) && $getsem != "S0") {
-                            $sql = "select idsem_fi, nomfiliere from filiere,sem_fi where sem_fi.idfiliere = filiere.idfiliere and idsem='".$getsem."'";
-                            $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                            while ($data= mysqli_fetch_assoc($result)) {
-                                echo ("<option value=\"{$data['idsem_fi']}\" ");
-                                echo ">";
-                                echo $data["nomfiliere"];
+                        $prof = $_SESSION['prof'];
+                        $sql = "SELECT idsem_fi from profmod, modulefiliere where modulefiliere.idmod = profmod.idmod and idprof='".$prof."'";
+                        $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+                        while ($data = mysqli_fetch_assoc($res)) {
+                            $semfi = $data['idsem_fi'];
+                            $sql2 = "SELECT nomsem, nomfiliere from semestre, filiere, sem_fi 
+                            where sem_fi.idsem=semestre.idsem and sem_fi.idfiliere=filiere.idfiliere 
+                            and idsem_fi='".$semfi."'";
+                            $res2 = mysqli_query($link, $sql2) or die(mysqli_error($link));
+                            while ($data2 = mysqli_fetch_assoc($res2))
+                            {
+                                echo ("<option value=\"{$semfi}\">");
+                                echo $data2['nomsem']." - ".$data2['nomfiliere'];
                                 echo'</option>';
-                            }
+                            }   
                         }
                     ?>
                 </select>
             </div>
 
-            <input type="submit" name="submit" value="Créer/Modifier Emploi">
+            <input type="submit" name="ratt" value="Programmer rattrapage">
         </form>
     </div>
     <?php

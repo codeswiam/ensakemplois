@@ -1,10 +1,10 @@
 <?php
-    session_start();
+    //session_start();
     include ("connexion.php");
     if (!isset($_SESSION['admin'])){
         header("Location: acceuil.php");
     }
-    if (isset($_POST['submit'])){
+    if (isset($_POST['emploi'])){
         if ($_POST['semestre'] == "S0" or $_POST['filiere'] == "FIL"){
             echo "Veuillez selectionner un semestre et une filière";
             echo "<span class='retouracceuil'><a href='acceuil.php' class='link'>Retour</a></span>";
@@ -63,10 +63,10 @@
         if (isset($_COOKIE['semestre']) && isset($_COOKIE['filiere'])){
             $sem = $_COOKIE['semestre'];
             $fil= $_COOKIE['filiere'];
-            if ($sem == "S0" or $fil == "FIL"){
+            /*if ($sem == "S0" or $fil == "FIL"){
                 echo "Veuillez selectionner un semestre et une filière";
                 echo "<span class='retouracceuil'><a href='acceuil.php' class='link'>Retour</a></span>";
-            } else {
+            } else {*/
                 $sql1 = "SELECT nomsem from semestre where idsem='".$sem."'";
                 $res1 = mysqli_query($link, $sql1) or die("Erreur selection semestres");
                 while ($semestre= mysqli_fetch_assoc($res1)) {
@@ -225,7 +225,7 @@
                         //}
                     }
                 }
-            }
+            //}
         }
         
     ?>
@@ -239,7 +239,7 @@
                         $sql = "SELECT nommodule, module.idmod from module, modulefiliere, sem_fi 
                         where module.idmod = modulefiliere.idmod 
                         and sem_fi.idsem_fi = modulefiliere.idsem_fi 
-                        and sem_fi.idsem_fi= '".$fil."'";
+                        and sem_fi.idsem_fi= '".$fil."'"; // why do you need sem_fi??
                         $result = mysqli_query($link, $sql) or die(mysqli_error($link));
                         while ($data= mysqli_fetch_assoc($result)) {
                             echo ("<option value=\"{$data['idmod']}\" ");
@@ -308,9 +308,9 @@
                         <option value="0"> Sélectionner </option>
                         <?php
                             if ($typ == "TD")
-                                $sql = "SELECT groupetd as groupe, nomgrp from groupetd where idsem_fi = '".$fil."')";
+                                $sql = "SELECT groupetd as groupe, nomgrp from groupetd where idsem_fi = '".$fil."'";
                             if ($typ == "TP")
-                                $sql = "SELECT groupetp as groupe, nomgrp from groupetp where idsem_fi = '".$fil."')";
+                                $sql = "SELECT groupetp as groupe, nomgrp from groupetp where idsem_fi = '".$fil."'";
                             $result = mysqli_query($link, $sql) or die(mysqli_error($link));
                             while ($data= mysqli_fetch_assoc($result)) {
                                 echo ("<option value=\"{$data['groupe']}\">");
