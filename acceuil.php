@@ -45,7 +45,7 @@
         </ul>
     </nav>
 
-    <h1> Acceuil 1</h1>
+    <h1> Acceuil 2</h1>
 
     <?php
         if (isset($_SESSION['admin']))

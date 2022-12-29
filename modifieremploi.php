@@ -33,12 +33,6 @@
     if (isset($_GET["grp"]) && $_GET["grp"] != "0") {
         $gr = $_GET["grp"];
     }
-    if (isset($_GET["jour"])){
-        $j = $_GET["jour"];
-    }
-    if (isset($_GET["heure"])){
-        $h = $_GET["heure"];
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,24 +68,10 @@
                 }
             }
         }
-        function autoSubmitJour() {
-            with (window.document.form) {
-                if (jour.selectedIndex != 0) {
-                    window.location.href = 'modifieremploi.php?jour=' + jour.options[jour.selectedIndex].value;
-                }
-            }
-        }
-        function autoSubmitHeure() {
-            with (window.document.form) {
-                if (heure.selectedIndex != 0) {
-                    window.location.href = 'modifieremploi.php?jour=' + jour.options[jour.selectedIndex].value + '&heure=' + heure.options[heure.selectedIndex].value;
-                }
-            }
-        }
     </script>
 </head>
 <body>
-    <h1> emploi 8 </h1> 
+    <h1> emploi 15 </h1> 
     <!-- affichage emploi -->
     <?php
         if (isset($_COOKIE['semestre']) && isset($_COOKIE['filiere'])){
@@ -430,92 +410,46 @@
     </form>
 
     <form action="#" method="post">
-        <!! doesnt work so do the usual checkup before submit-->
+        <!-- doesnt work so do the usual checkup before submit-->
         <div>
-            <label for="jour">Jour:</label>
-            <select name="jour" id="" onchange="autoSubmitJour();">
+            <label for="seance">Séance:</label>
+            <select name="seance" id="">
                 <option value="0"> Sélectionner </option>
                 <?php
-                    // on selectionne juste les jours ou la filiere ont cours
-                    $sql = "SELECT * from jour where idjour in (select idjour from seancefiliere,seance where seancefiliere.idseance=seance.idseance)";
-                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                    while ($data= mysqli_fetch_assoc($result)) {
-                        echo ("<option value=\"{$data['idjour']}\" ");
-                        if (isset($j)){
-                            if ($j == $data['idjour'])
-                                echo "selected";
+                    $sql1 = "select * from jour";
+                    $res1 = mysqli_query($link,$sql1) or die("Echec jour");
+                    while ($data1 = mysqli_fetch_assoc($res1)){
+                        $jour = $data1['idjour'];
+                        $nomjour = $data1['nomjour'];
+
+                        $sql2 = "select * from creneau";
+                        $res2 = mysqli_query($link,$sql2) or die("Echec creneau");
+                        while ($data2 = mysqli_fetch_assoc($res2)){
+                            $creneau = $data2['idcreneau'];
+                            $start= $data2['starttime'];
+
+                            $sql3 = "SELECT type, seance.idseance, nommodule from seance, seancefiliere, profmod, module 
+                            where seance.idseance = seancefiliere.idseance
+                            and seance.idprofmod = profmod.idprofmod
+                            and profmod.idmod = module.idmod
+                            and idjour='".$jour."' and idcreneau='".$creneau."'";
+                            $res3 = mysqli_query($link,$sql3) or die("Echec seance");
+                            if (mysqli_num_rows($res3) != 0){
+                                while ($data3 = mysqli_fetch_assoc($res3)){
+                                    $nommod = $data3['nommodule'];
+                                    $type = $data3['type'];
+                                    echo ("<option value=\"{$data3['idseance']}\">");
+                                    echo $nomjour.", ".$start." - ".$type." / ".$nommod;
+                                    echo'</option>';                   
+                                }
+                            }
+                            
                         }
-                        echo ">";
-                        echo $data["nomjour"];
-                        echo'</option>';
                     }
                 ?>
             </select>
         </div>
 
-        <div>
-            <label for="heure">Horaire:</label>
-            <select name="heure" id="" required onchange="autoSubmitHeure();">
-                <option value="0"> Sélectionner </option>
-                <?php
-                    if (isset($j)){
-                        // juste les heures ou la filiere a cours
-                        $sql = "SELECT * from creneau 
-                        where idcreneau in 
-                        (select idcreneau from seancefiliere, seance 
-                        where seancefiliere.idseance= seance.idseance 
-                        and idjour='".$j."')";
-                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                        while ($data= mysqli_fetch_assoc($result)) {
-                            echo ("<option value=\"{$data['idcreneau']}\" ");
-                            if (isset($h)){
-                                if ($h == $data['idcreneau'])
-                                    echo "selected";
-                            }
-                            echo ">";
-                            echo $data["starttime"].' - '.$data["endtime"];
-                            echo'</option>';
-                        }
-                    }  
-                ?>
-            </select>
-        </div>
-
-        <?php
-        // cas ou la filiere a plusieurs seances td/tp au meme temps
-            if (isset($j) && isset($h)){
-                $sql = "SELECT seance.idseance,type from seancefiliere, seance where seancefiliere.idseance = seance.idseance
-                and idjour='".$j."' and idcreneau='".$h."'";
-                $res = mysqli_query($link, $sql) or die(mysqli_error($link));
-                if (mysqli_num_rows($res) != 0){
-        ?>
-                    <div>
-                    <label for="seance">Séance:</label>
-                    <select name="seance" id="" required>
-                        <?php
-                        while ($data= mysqli_fetch_assoc($res)){
-                            $seance = $data['idseance'];
-                            $type = $data['type'];
-                            if ($type == "TD")
-                                $sql = "SELECT nomgrp, type, nommodule from seance, seancetd, groupetd, profmod, module where seance.idseance = seancetd.idseance and seancetd.groupetd = groupetd.groupetd
-                                and seance.idprofmod = profmod.idprofmod and profmod.idmod = module.idmod and seance.idseance='".$seance."'";
-                            if ($typ == "TP")
-                                $sql = "SELECT nomgrp, type, nommodule from seance, seancetp, groupetp, profmod, module where seance.idseance = seancetp.idseance and seancetp.groupetp = groupetp.groupetp
-                                and seance.idprofmod = profmod.idprofmod and profmod.idmod = module.idmod and seance.idseance='".$seance."'";
-                            $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                            while ($data2= mysqli_fetch_assoc($result)) {
-                                echo ("<option value=\"{$data['seance']}\">");
-                                echo $data2["type"]." ".$data2["nomgrp"]." - ".$data2["nommodule"];
-                                echo'</option>';
-                            }
-                        ?>
-                    </select>
-                    </div>
-        <?php
-                        }
-                }
-            }
-        ?>
         <input type="submit" name="suppseance" value="Supprimer Séance">
     </form>
 
@@ -626,11 +560,63 @@
     ?>
     <?php
         if (isset($_POST['suppemploi'])){
+            // le cas ou plusieurs filieres ont meme cours
+            $sql1 = "SELECT seance.idseance from seancefiliere, seance, seancecours 
+            where seancefiliere.idseance=seance.idseance and seancecours.idseance = seance.idseance
+            and idsem_fi='".$fil."'";
+            $res1 = mysqli_query($link, $sql1) or die("Erreur trouver seance cours");
+            while ($data1 = mysqli_fetch_assoc($res1)){
+                $seance = $data1['idseance'];
+                $sql2 = "SELECT sem_fi.idsem_fi from seancecours, sem_fi where seancecours.idsem_fi = sem_fi.idsem_fi 
+                and idseance='".$seance."'";
+                $res2 = mysqli_query($link, $sql2) or die("Erreur selection filieres de ce cours");
+                if (mysqli_num_rows($res2) > 1){ // si plusieurs filieres ont cette seance
+                    while ($data1 = mysqli_fetch_assoc($res2)){
+                        $sql3 = "DELETE from seancecours where idseance='".$seance."' and idsem_fi='".$fil."'";
+                        $res3 = mysqli_query($link, $sql3) or die("Erreur suppression de seances communes");
+                    }
+                }
+            }
             $sql = "DELETE from seance where idseance in (select idseance from seancecours where idsem_fi = '".$fil."') 
             or idseance in (select idseance from seancetd where groupetd in (select groupetd from groupetd where idsem_fi = '".$fil."'))
             or idseance in (select idseance from seancetp where groupetp in (select groupetp from groupetp where idsem_fi = '".$fil."'))";
             $res = mysqli_query($link, $sql) or die("Erreur suppression de l'emploi");
-            if ($result == true){
+            if ($res == true){
+                ?>
+                <script type="text/javascript">
+                    window.location.href = 'modifieremploi.php';
+                </script>
+                <?php
+            }
+        }
+    ?>
+    <?php
+        if (isset($_POST['suppseance'])){
+            $seance = $_POST['seance'];
+            $sql = "SELECT type from seance where idseance='".$seance."'";
+            $res = mysqli_query($link, $sql) or die("Erreur selection type seance à supprimer");
+            while ($data = mysqli_fetch_assoc($res)){
+                $type = $data['type'];
+                if ($type == "Cours"){
+                    $sql1 = "SELECT sem_fi.idsem_fi from seancecours, sem_fi 
+                    where seancecours.idsem_fi = sem_fi.idsem_fi and idseance='".$seance."'";
+                    $res1 = mysqli_query($link, $sql1) or die("Erreur selection filieres de ce cours");
+                    if (mysqli_num_rows($res1) > 1){ // si plusieurs filieres ont cette seance
+                        while ($data1 = mysqli_fetch_assoc($res1)){
+                            $sql2 = "DELETE from seancecours where idseance='".$seance."' and idsem_fi='".$fil."'";
+                            $resupp = mysqli_query($link, $sql2) or die("Erreur suppression seance 1");
+                        }
+                    } else {
+                        $supp = "DELETE from seance where idseance='".$seance."'";
+                    }  
+                } else {
+                    $supp = "DELETE from seance where idseance='".$seance."'";
+                }
+                if (isset($supp)){
+                    $result =  mysqli_query($link, $supp) or die("Erreur suppression seance 2");
+                }
+            }
+            if ($result == true or (isset($resupp) and $resupp == true)){
                 ?>
                 <script type="text/javascript">
                     window.location.href = 'modifieremploi.php';
