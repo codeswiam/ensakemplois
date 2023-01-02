@@ -1,9 +1,6 @@
 <?php 
     include ("connexion.php");
-    //unset($_SESSION['prof']);
     session_start();
-    $_SESSION['admin'] = "admin";
-    //echo ($_SESSION["prof"]);
     if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
         $getsem = $_GET["semestre"];
     }
@@ -40,8 +37,20 @@
                     <li><a href="locaux.php">Locaux</a></li>
             <?php
                 }
+                if (!isset($_SESSION['admin']) && !isset($_SESSION['prof']))
+                {
             ?>
-            <li><a href="seconnecter.php">Se connecter</a></li>
+                    <li><a href="seconnecter.php">Se connecter</a></li>
+            <?php 
+                } else {
+                    echo "<li><a href=";
+                    if (isset($_SESSION['prof']))
+                        echo "profilprof.php";
+                    if (isset($_SESSION['admin']))
+                        echo "profiladmin.php";
+                    echo ">Profil</a></li>";
+                }
+            ?>
         </ul>
     </nav>
 
@@ -104,36 +113,36 @@
         if (isset($_SESSION['prof']))
         {
     ?>
-    <div> <h2> Programmer un rattrapage </h2>
-        <form action="rattrapage.php" method="post" name="form">
-            <div>
-                <label for="semfi">Filière:</label>
-                <select name="semfi" id="">
-                    <option value="0"> Sélectionner </option>
-                    <?php
-                        $prof = $_SESSION['prof'];
-                        $sql = "SELECT idsem_fi from profmod, modulefiliere where modulefiliere.idmod = profmod.idmod and idprof='".$prof."'";
-                        $res = mysqli_query($link, $sql) or die(mysqli_error($link));
-                        while ($data = mysqli_fetch_assoc($res)) {
-                            $semfi = $data['idsem_fi'];
-                            $sql2 = "SELECT nomsem, nomfiliere from semestre, filiere, sem_fi 
-                            where sem_fi.idsem=semestre.idsem and sem_fi.idfiliere=filiere.idfiliere 
-                            and idsem_fi='".$semfi."'";
-                            $res2 = mysqli_query($link, $sql2) or die(mysqli_error($link));
-                            while ($data2 = mysqli_fetch_assoc($res2))
-                            {
-                                echo ("<option value=\"{$semfi}\">");
-                                echo $data2['nomsem']." - ".$data2['nomfiliere'];
-                                echo'</option>';
-                            }   
-                        }
-                    ?>
-                </select>
-            </div>
+            <div> <h2> Programmer un rattrapage </h2>
+                <form action="rattrapage.php" method="post" name="form">
+                    <div>
+                        <label for="semfi">Filière:</label>
+                        <select name="semfi" id="">
+                            <option value="0"> Sélectionner </option>
+                            <?php
+                                $prof = $_SESSION['prof'];
+                                $sql = "SELECT idsem_fi from profmod, modulefiliere where modulefiliere.idmod = profmod.idmod and idprof='".$prof."'";
+                                $res = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                while ($data = mysqli_fetch_assoc($res)) {
+                                    $semfi = $data['idsem_fi'];
+                                    $sql2 = "SELECT nomsem, nomfiliere from semestre, filiere, sem_fi 
+                                    where sem_fi.idsem=semestre.idsem and sem_fi.idfiliere=filiere.idfiliere 
+                                    and idsem_fi='".$semfi."'";
+                                    $res2 = mysqli_query($link, $sql2) or die(mysqli_error($link));
+                                    while ($data2 = mysqli_fetch_assoc($res2))
+                                    {
+                                        echo ("<option value=\"{$semfi}\">");
+                                        echo $data2['nomsem']." - ".$data2['nomfiliere'];
+                                        echo'</option>';
+                                    }   
+                                }
+                            ?>
+                        </select>
+                    </div>
 
-            <input type="submit" name="ratt" value="Programmer rattrapage">
-        </form>
-    </div>
+                    <input type="submit" name="ratt" value="Programmer rattrapage">
+                </form>
+            </div>
     <?php
         }
     ?>
