@@ -5,21 +5,20 @@
 </head>
 <body>
 <header>
-    <a href="ajouterprof.php"> ajouter un professeur</a>
+    <a href="ajouterprof.php"> Ajouter un professeur </a>
 </header>
 
-<table cellpadding="20px"cellspacing="10px" >
+<table border=1>
     <tr >
-        <th >nom</th>
-        <th >prenom</th>
-        <th >charge horaire</th>
+        <th >Nom</th>
+        <th >Prénom</th>
+        <th >Charge Horaire</th>
     </tr>
     <?php
     session_start();
     include "connexion.php";
     $sql1="SELECT * FROM prof" ;
     $result1=mysqli_query($link,$sql1);
-
     while($data1=mysqli_fetch_assoc ( $result1)){
         $sql2="SELECT nom,count(idseance) as nbseance FROM seance,profmod,prof where seance.idprofmod=profmod.idprofmod and prof.idprof=profmod.idprof and prof.idprof='".$data1['idprof']."'" ;
         $result2=mysqli_query($link,$sql2);
@@ -30,9 +29,6 @@
         echo"<td>". $data2['nbseance']*2 ."<nbsp> heures"."</td>";
         echo "</tr>";
     }
-
-
-
     ?>
 </table>
 </body>
