@@ -26,7 +26,7 @@ if(isset($_POST['valider']))
 	$batiment=$_POST['batiment'];
     echo $batiment;
     
-        $sql2="INSERT INTO batiment values(NULL,'".$nombatiment."',NULL)";
+        $sql2="INSERT INTO batiment values (NULL,'".$nombatiment."',NULL)";
         $result2 = mysqli_query($link,$sql2) ;
    }
     header('location: locaux.php');
