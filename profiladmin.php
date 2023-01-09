@@ -44,6 +44,20 @@
             ?>
         </ul>
     </nav>
+    <?php
+        $sql="select * from admin where idadmin='".$_SESSION['admin']."'";
+        $result=mysqli_query($link,$sql);
+        $data= mysqli_fetch_assoc($result);
+    ?>
+    <?php echo"<p><img src=photo/".$data["photo"]."></p>"; ?>
+    <h3>Nom</h3>
+    <?php  echo $data["nom"];?>
+    <h3>Prenom</h3>
+    <?php echo $data["prenom"]; ?>
+</br>
+    <h3>Email</h3>
+    <?php echo $data["email"];?>
+</br>
 
     <a href="deconnexion.php"> Se déconnecter </a> 
 </body>
