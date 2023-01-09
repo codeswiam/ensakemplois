@@ -1,46 +1,68 @@
+<?PHP
+    session_start();
+    include ("connexion.php");
+    if (!isset($_SESSION['admin'])){
+        header("Location: acceuil.php");
+    } else {
+        $admin = $_SESSION['admin'];
+    }
+?>
 <!DOCTYPE html>
-<html lang= "fr " dir="ltr" ></html>
+<html lang="en">
 <head>
-    <title>FORMULAIRE</title>
-    <meta name="author" content="Nom de la personne qui a réalisé la page"/>
-    <meta charset= " utf-8" />
-    <meta name="keywords" />
-    <link rel="stylesheet" href="style.css" />
-    
+    <meta charset="UTF-8">
+    <title>Filières</title>
 </head>
-
 <body>
+    <nav> 
+        <ul>
+            <li>logo ensa</li>
+            <li><a href="acceuil.php">Acceuil</a></li>
+            <?php
+                if (isset($_SESSION['admin']))
+                {
+            ?>
+                    <li><a href="filiere.php">Filières</a></li>
+                    <li><a href="module.php">Modules</a></li>
+                    <li><a href="professeur.php">Professeurs</a></li>
+                    <li><a href="locaux.php">Locaux</a></li>
+            <?php
+                }
+                if (!isset($_SESSION['admin']) && !isset($_SESSION['prof']))
+                {
+            ?>
+                    <li><a href="seconnecter.php">Se connecter</a></li>
+            <?php 
+                } else {
+                    echo "<li><a href=";
+                    if (isset($_SESSION['prof']))
+                        echo "profilprof.php";
+                    if (isset($_SESSION['admin']))
+                        echo "profiladmin.php";
+                    echo ">Profil</a></li>";
+                }
+            ?>
+        </ul>
+    </nav>
 
-     <ul> 
-            <li ><a href=#>FILIERE</a></li>
-            <li><a href="ajouterfiliere.php">Ajouter filière</a></li>
-            <li><a href="ajoutertd.php">Ajouter un groupe de td</a></li>
-            <li><a href="ajoutertp.php">Ajouter un groupe de tp</a></li>                                  
+    <h1>FILIÈRES</h1>
+
+    <ul> 
+        <li><a href="ajouterfiliere.php">Ajouter filière</a></li>
+        <li><a href="ajoutertd.php">Ajouter un groupe de td</a></li>
+        <li><a href="ajoutertp.php">Ajouter un groupe de tp</a></li>                                  
     </ul>                                    
-                                          
-    
-    <h2>FILLIERE</h2>
-        <?php
-        include ("connexion.php");
+
+    <?php
         echo"<table border=1>";
         echo"<tr>";
         echo"<th>Semestre</th>";
-        echo"<th>Filiere</th>"; 
+        echo"<th>Filière</th>"; 
         echo"<th>Charge horaire</th>";
         echo"<th>Groupes td</th>";
         echo"<th>Groupes tp</th>";
         echo "</tr>";
         $sql="select * from semestre"; 
-        // hanti katdiri select * from semestre 
-        // moraha mor makatakhdi l resultat kat7elli l boucle while dyal fetch assoc
-        // west menneha katakhdi l'id sem, kat afficher le nom d sem b  echo <td> nomsem </td>
-        /* w nti mazala west dik la boucle katdiri 
-        select idsem_fi, nomfiliere from sem_fi, filiere where sem_fi.idfiliere = filiere.idfiliere and idsem=(variable sem lli hezziti)
-        moraha menni katdir le resultat w kat7elli la boucle fetch assoc dyal had le resultat, katakhdi idsem_fi w katafficher le nomfiliere
-        3ad katmshi tehezzi les groupes td bou7dhoum w les grps tps bou7dhoum en utilisant dik idsem_fi lli hezziti 9bayla,
-        <td> diri boucle while dyal fetch assoc dles grps tds </td>
-        nefs l7aja pour les grps tps
-        */
         $res = mysqli_query($link,$sql);
         while($semestre=mysqli_fetch_assoc($res)){
             $sem= $semestre['idsem'];
@@ -61,9 +83,6 @@
                 while($filiere=mysqli_fetch_assoc($res1)){
                     $fil=$filiere['idsem_fi'];
                     echo "<td>".$filiere['nomfiliere']."</td>";
-                    
-                    // partie charge horaire
-                    // requete sql qui compte le nbr de seances totales de cette filiere
                     $sql4 = "select count(idseance) as nbrseance from seance 
                     where idseance in (select idseance from seancecours where idsem_fi = '".$fil."')
                     or idseance in (select idseance from seancetd where groupetd in (select groupetd from groupetd where idsem_fi = '".$fil."'))
@@ -79,11 +98,8 @@
                         }
                         echo"</td>";
 
-            }
-                    // mor matakhdi le resultat b fetch assoc, ila kant dik nbrseance kaysawi 0 bi ma3na filiere ma3endeha ta seance enregistrée fla base de donnees 
-                    // donc diri echo<td></td> ze3ma hatb9a khawya
-                    // sinon diri echo <td> w tu multiplie nbreance*2, 7it kan7esbou le nbr de jour, w diri echo l had le resultat w seddi </td>
-                    
+                    }   
+
                     // partie grp td
                     $sql2="select nomgrp from groupetd where idsem_fi='".$fil."'";
                     $res2=mysqli_query($link,$sql2);
@@ -112,20 +128,8 @@
                     echo "</tr>";
                 }
             }
-            
-            //$sql4="select ";
-            //
-
         }
         echo"</table>";
-        ?>
-
-    
-
-
-    
-
-
-
-
+    ?>
 </body>
+</html>
