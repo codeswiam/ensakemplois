@@ -72,7 +72,7 @@ if (isset($_POST['ajouter'])){
     }
     if($result2==true){
         echo'<a href="filiere.php" >Retour</a></br>';
-        echo'<a href="ajoutertd.php" >Ajouter un autre groupe</a></br>';
+        echo'<a href="ajoutertp.php" >Ajouter un autre groupe</a></br>';
     }
 
 }   

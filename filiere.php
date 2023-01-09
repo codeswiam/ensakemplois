@@ -10,15 +10,14 @@
 </head>
 
 <body>
-<nav>
-     <ul > 
+
+     <ul> 
             <li ><a href=#>FILIERE</a></li>
-            <li><a href="">Ajouter filière</a></li>
-            <li><a href="">Ajouter un groupe de td</a></li>
-            <li><a href="" >Ajouter un groupe de tp</a></li>                                  
+            <li><a href="ajouterfiliere.php">Ajouter filière</a></li>
+            <li><a href="ajoutertd.php">Ajouter un groupe de td</a></li>
+            <li><a href="ajoutertp.php">Ajouter un groupe de tp</a></li>                                  
     </ul>                                    
                                           
-</nav>
     
     <h2>FILLIERE</h2>
         <?php
