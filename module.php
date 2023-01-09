@@ -27,12 +27,12 @@ echo" <th> MODULE  </th>";
            echo" <td>".$semestre['nomsem'] ." </td>";
         }
    
-         $sql3="SELECT nommodule  FROM module WHERE module.idmod=modulefiliere.idmod ";
+         $sql3="SELECT nommodule  FROM module WHERE module.idmod=modulefiliere.idmod  and idsem='".$sem."'";
         $result3=mysqli_query($link,$sql3);
         echo" <td>";
         while ($module=mysqli_fetch_assoc($result3))
 {
-            $mod=$module['nommodule'];
+            $mod=$module['idmodule'];
             echo" <div>".$module['nommodule']." </div>";
 }
 echo "</td>";
@@ -41,12 +41,4 @@ echo" </table>";
 ?>
 
 
-</br>
 
-
-
-
-<input type="submit" value="valider" >
-</br>
-
-</br>
