@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <nav class="menu"> 
         <ul>
+
             <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
@@ -26,7 +28,7 @@
                 if (!isset($_SESSION['admin']) && !isset($_SESSION['prof']))
                 {
             ?>
-                    <li><a href="seconnecter.php">Se connecter</a></li>
+                    <li><a href="welcome.php">Se connecter</a></li>
             <?php 
                 } else {
                     echo "<li><a href=";
@@ -41,14 +43,17 @@
     </nav>
     
     <form action="#" method="post" name="form">
+        <?php
+        session_start();
+        if ($_SESSION['session'] == "prof"){
+            echo "<h1>bienvenue dans l'espace professeur</h1>";
+            echo "<h4>connecter-vous a votre compte</h4>";
+        }
+            else if ($_SESSION['session'] == "admin"){
+                echo "<h1>bienvenue dans l'espace adminstrateur</h1>";
+                echo "<h4>connecter-vous a votre compte</h4>";
+        }?>
 
-        <div>
-            <label for="type">Compte</label>
-            <select name="type" id="">
-                <option value="prof">Professeur</option>
-                <option value="admin">Admin</option>
-            </select>
-        </div>
 
         <div>
             <label for="email">Email:</label> 
@@ -65,29 +70,27 @@
     </form>
     <?php
         if (isset($_POST['connexion'])){
-            $type = $_POST['type'];
             $email = $_POST['email'];
             $mdp = $_POST['mdp'];
             $trouve = 0;
-            if ($type == "prof"){
+            if ($_SESSION['session'] == "prof"){
                 $sql = "select idprof, email, mdp from prof";
                 $res = mysqli_query($link, $sql) or die ("Erreur de connexion à la base.");
                 while ($data = mysqli_fetch_assoc($res)){
                     if ($email == $data['email'] and $mdp == $data['mdp']){
                         $trouve = 1;
-                        session_start();
                         $_SESSION['prof'] = $data['idprof'];
                         header("Location: acceuil.php");
                         break;
                     }
                 }   
-            } else {
+            }
+            else if ($_SESSION['session'] == "admin")  {
                 $sql = "select idadmin, email, mdp from admin";
                 $res = mysqli_query($link, $sql) or die ("Erreur de connexion à la base.");
                 while ($data = mysqli_fetch_assoc($res)){
                     if ($email == $data['email'] and $mdp == $data['mdp']){
                         $trouve = 1;
-                        session_start();
                         $_SESSION['admin'] = $data['idadmin'];
                         header("Location: acceuil.php");
                         break;
