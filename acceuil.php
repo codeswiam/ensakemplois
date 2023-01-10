@@ -26,6 +26,7 @@
     <nav> 
         <ul>
             <li>logo ensa</li>
+            <img src="images/logo.png" size="20px" />
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
