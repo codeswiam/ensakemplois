@@ -6,9 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav> 
+    <nav class="menu"> 
         <ul>
             <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
@@ -40,19 +41,25 @@
     </nav>
     
     <form action="#" method="post" name="form">
-        
-        <label for="type">Compte</label>
-        <select name="type" id="">
-            <option value="prof">Professeur</option>
-            <option value="admin">Admin</option>
-        </select>
-        
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="" required>
-        
-        <label for="mdp"> Mot de Passe:</label>
-        <input type="text" name="mdp" id="" required>
 
+        <div>
+            <label for="type">Compte</label>
+            <select name="type" id="">
+                <option value="prof">Professeur</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="email">Email:</label> 
+            <input type="email" name="email" id="" required>
+        </div>
+        
+        <div>
+            <label for="mdp"> Mot de Passe:</label> 
+            <input type="text" name="mdp" id="" required>
+        </div>
+        
         <input type="submit" value="Connexion" name="connexion">
 
     </form>

@@ -1,17 +1,17 @@
 <?PHP
     session_start();
     include ("connexion.php");
-    if (!isset($_SESSION['prof'])){
+    if (!isset($_SESSION['admin'])){
         header("Location: acceuil.php");
     } else {
-        $prof = $_SESSION['prof'];
-    }
+        $admin = $_SESSION['admin'];
+    }   
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profil</title>
+    <title>Professeurs</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -46,6 +46,30 @@
         </ul>
     </nav>
 
-    <a href="deconnexion.php"> Se déconnecter </a> 
+    <h1>PROFESSEURS</h1>
+
+    <a href="ajouterprof.php"> Ajouter un professeur </a>
+
+<table border=1>
+    <tr >
+        <th >Nom</th>
+        <th >Prénom</th>
+        <th >Charge Horaire</th>
+    </tr>
+    <?php
+    $sql1="SELECT * FROM prof" ;
+    $result1=mysqli_query($link,$sql1);
+    while($data1=mysqli_fetch_assoc ( $result1)){
+        $sql2="SELECT nom,count(idseance) as nbseance FROM seance,profmod,prof where seance.idprofmod=profmod.idprofmod and prof.idprof=profmod.idprof and prof.idprof='".$data1['idprof']."'" ;
+        $result2=mysqli_query($link,$sql2);
+        $data2=mysqli_fetch_assoc ( $result2);
+        echo"<tr>";
+        echo"<td>".$data1['nom']."</td> ";
+        echo"<td>".$data1['prenom']."</td>";
+        echo"<td>". $data2['nbseance']*2 ."<nbsp> heures"."</td>";
+        echo "</tr>";
+    }
+    ?>
+</table>
 </body>
 </html>
