@@ -7,11 +7,12 @@
     <meta charset="UTF-8">
     <title>Connexion</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
     <nav class="menu"> 
         <ul>
-            <li>logo ensa</li>
+        <li><img src="images/logo1.png" width="90px" height="30px"></li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
@@ -39,7 +40,7 @@
             ?>
         </ul>
     </nav>
-    
+    <div id="container">
     <form action="#" method="post" name="form">
 
         <div>
@@ -63,6 +64,7 @@
         <input type="submit" value="Connexion" name="connexion">
 
     </form>
+            </div>
     <?php
         if (isset($_POST['connexion'])){
             $type = $_POST['type'];

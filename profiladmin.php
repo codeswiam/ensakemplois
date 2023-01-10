@@ -63,11 +63,17 @@
     <h3>Email : </h3>
     <?php echo $data["email"];?>
 </br>
-    <form method="POST" action="deconnexion.php">
+    
+            </div>
+            <form method="POST" action="#">
     <input type="submit" value="Se déconnecter" name="deconnecter"> 
             </form>  
-            </div>
 
   
 </body>
+<?php 
+    if(isset($_POST["deconnecter"])){
+        header("location: deconnexion.php");
+    }
+?>
 </html>
