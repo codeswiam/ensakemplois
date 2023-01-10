@@ -18,6 +18,7 @@ if (!isset($_SESSION['prof'])){
         }
     </style>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
 <nav>
@@ -50,22 +51,25 @@ if (!isset($_SESSION['prof'])){
     </ul>
 </nav>
 
-<a href="deconnexion.php"> Se déconnecter </a>
+
 <h1>VOTRE PROFIL :</h1>
 <?php
 $sql="select * from prof where idprof='".$_SESSION['prof']."'";
 $result=mysqli_query($link,$sql);
 $data= mysqli_fetch_assoc($result);
 ?>
-<?php echo"<p><img src=photo/".$data["photo"]."></p>"; ?>
-<h3>Nom</h3>
-<?php  echo $data["nom"];?>
-<h3>Prenom</h3>
-<?php echo $data["prenom"]; ?>
+<div class="card">
+<aside><?php echo"<p><img src=photo/".$data["photo"]."></p>"; ?></aside>
+<article>
+<span><h3>Nom</h3>
+<?php  echo $data["nom"];?></span>
+<span><h3>Prenom</h3>
+<?php echo $data["prenom"]; ?></span>
 </br>
-<h3>Email</h3>
-<?php echo $data["email"];?>
+<span><h3>Email</h3>
+<?php echo $data["email"];?></span>
 </br>
+
 <button onclick="myFunction()">modifier le profil</button>
 <script>
     function myFunction() {
@@ -73,6 +77,9 @@ $data= mysqli_fetch_assoc($result);
         section.style.display = "block";
     }
 </script>
+<form method="POST" action="#" id="form2">
+    <input type="submit" value="Se déconnecter" name="deconnecter"> 
+            </form>  
 <section id="my-section">
     <form action="#" method="post" enctype="multipart/form-data">
         <h4>clicker sur modifier apres changement de vos donner</h4>
