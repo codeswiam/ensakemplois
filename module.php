@@ -11,13 +11,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>module</title>
-
+    <title>Module</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="menu"> 
         <ul>
-            <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))

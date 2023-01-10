@@ -12,8 +12,6 @@
 
     <nav class="menu"> 
         <ul>
-
-            <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))

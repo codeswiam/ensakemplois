@@ -16,15 +16,15 @@ if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
 <body>
 <header>
     <h2> bienvenue sur <span>EMPLOI ENSAK</span> </h2>
-<img src="photo/cookie.jpg" width="900" height="500" id="ensak">
+<img src="images/cookie.jpg" width="900" height="500" id="ensak">
 </header>
 <section>
     <h4>Vous êtes ?</h4>
     <form action="#" method="POST" name="form">
     <div>
 
-        <button type="submit" name="prof" title="Envoyer"><figure><img src="photo/professeur.png" class="imgbut" alt="" /> <figcaption>je suis professeur</figcaption> </figure></button>
-        <button type="submit" name="admin"  title="Envoyer"><figure><img src="photo/administrateur.png" class="imgbut" alt="" /> <figcaption>je suis adminstrateur</figcaption> </figure></button>
+        <button type="submit" name="prof" title="Envoyer"><figure><img src="images/professeur.png" class="imgbut" alt="" /> <figcaption>je suis professeur</figcaption> </figure></button>
+        <button type="submit" name="admin"  title="Envoyer"><figure><img src="images/administrateur.png" class="imgbut" alt="" /> <figcaption>je suis adminstrateur</figcaption> </figure></button>
 
     </div>
     </form>

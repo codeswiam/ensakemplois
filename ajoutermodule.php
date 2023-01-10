@@ -15,6 +15,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Ajout Module</title>
+    <link rel="stylesheet" href="style.css">
     <script type="text/javascript">
         function autoSubmitSem() {
             with (window.document.form) {
@@ -29,7 +30,6 @@
 <body>
     <nav class="menu"> 
         <ul>
-            <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
