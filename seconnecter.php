@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <nav class="menu"> 
         <ul>
-            <li>logo ensa</li>
+
+            <li><a href="welcome.php">logo ensa</a></li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
@@ -41,14 +43,16 @@
     </nav>
     
     <form action="#" method="post" name="form">
+        <? session_start();
+        if ($_SESSION['session'] == "prof"){
+            echo "<h1>bienvenue dans l'espace professeur</h1>";
+            echo "<h4>connecter-vous a votre compte</h4>";
+        }
+            elseif ($_SESSION['session'] == "admin"){
+                echo "<h1>bienvenue dans l'espace adminstrateur</h1>";
+                echo "<h4>connecter-vous a votre compte</h4>";
+        }?>
 
-        <div>
-            <label for="type">Compte</label>
-            <select name="type" id="">
-                <option value="prof">Professeur</option>
-                <option value="admin">Admin</option>
-            </select>
-        </div>
 
         <div>
             <label for="email">Email:</label> 
@@ -65,11 +69,11 @@
     </form>
     <?php
         if (isset($_POST['connexion'])){
-            $type = $_POST['type'];
+            session_start();
             $email = $_POST['email'];
             $mdp = $_POST['mdp'];
             $trouve = 0;
-            if ($type == "prof"){
+            if ($_SESSION['session'] == "prof"){
                 $sql = "select idprof, email, mdp from prof";
                 $res = mysqli_query($link, $sql) or die ("Erreur de connexion à la base.");
                 while ($data = mysqli_fetch_assoc($res)){
@@ -81,7 +85,7 @@
                         break;
                     }
                 }   
-            } else {
+            } elseif ($_SESSION['session'] == "admin")  {
                 $sql = "select idadmin, email, mdp from admin";
                 $res = mysqli_query($link, $sql) or die ("Erreur de connexion à la base.");
                 while ($data = mysqli_fetch_assoc($res)){
