@@ -36,6 +36,13 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="stylee.css" />
+<style>
+    form{
+        width:100%;
+    }
+    </style>
+    
 <head>
     <meta charset="UTF-8">
     <title>Ajout rattrapage</title>
@@ -427,7 +434,7 @@
         }
         
     ?>
-    <a href="acceuil.php">Retour</a>
+    <a href="acceuil.php" id="retour">Retour</a>
     
     <?php
         if(isset($_POST['ajoutratt']))

@@ -87,7 +87,7 @@ td{
 #modifieremploi, #ajoutratt{
     width: 30%;
     position: relative;
-    left: 70%;
+    left: 65%;
 }
 
 #forms{
@@ -109,3 +109,27 @@ td{
 label{
     display: block;
 }
+
+   #select{
+    width: 100%;
+    padding: 14px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+   }
+
+   input[type=submit] {
+    background-color: #007DFF;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    width: 100%;
+   }
+   input[type=submit]:hover {
+    background-color: white;
+    color: #007DFF;
+    border: 1px solid #007DFF;
+   }
+   

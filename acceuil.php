@@ -20,7 +20,9 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="stylee.css">
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
 
@@ -64,7 +66,7 @@
                 <form action="modifieremploi.php" method="post" name="form">
                     <div>
                         <label for="semestre">Semestre:</label>
-                        <select name="semestre" id="" onchange="autoSubmitSem();">
+                        <select name="semestre" id="select" onchange="autoSubmitSem();">
                             <option value="S0"> Sélectionner </option>
                             <?php
                                 $sql = "select * from semestre";
@@ -85,7 +87,7 @@
 
                     <div>
                         <label for="filiere">Filiere:</label>
-                        <select name="filiere" id="">
+                        <select name="filiere" id="select">
                             <option value="0"> Sélectionner </option>
                             <?php
                                 if (isset($getsem) && $getsem != "S0") {
