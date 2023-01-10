@@ -5,33 +5,38 @@ include ("connexion.php");
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-   
-    <link rel="#" href="#">
 
     <title>ajouter salle</title>
 
 </head>
-<body>
+<h3 ajouter salle></h3> </br>
+ </br>
 <td><label for="ajouter salle" >salle</label></td>
-<td><input type="texte" name="salle" ></td>
+<td><input type="texte" name="salle" ></td> </br> </br>
+
+
+<td><label for="nom batimet" >nom batiment</label></td>
+<td><input type="texte" name="nom_batiment" ></td>  </br> </br>
+
+<td><label for="capp aceuil" >cap acueil</label></td>
+<td><input type="texte" name="cap_acueil" ></td>  </br>  </br>
+
+
 
     </br>
     </br>
-    <input type="submit" value="valider" >
+    <input type="submit" value="ajouter" name="ajouter" > </br>
+</br>
 
     <?php
-include ("connexion.php");
-if(isset($_POST['valider']))
-{
-	$salle=$_POST['salle'];
-    echo $salle;
-    
-        $sql2="INSERT INTO salle values(NULL,'".$nomsalle."',NULL)";
+if(isset($_POST['ajouter'])){
+	$nomsalle=$_POST['salle'];
+    $nom_batiment=$_POST['nom_batiment'];
+    $cap_acueil=$_POST['cap_acueil'];
+
+        $sql2="INSERT INTO `salle`(`idsalle`, `nombatiment`, `numsalle`, `cap_acceuil`) VALUES (NULL,$nom_batiment,'$nomsalle',$cap_acueil)";
         $result2 = mysqli_query($link,$sql2) ;
-   
-    header('location: locaux.php');
+        header('location:locaux.php');
 }
 
 ?>
-
-
