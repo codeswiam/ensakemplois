@@ -13,11 +13,12 @@ if (!isset($_SESSION['prof'])){
     <meta charset="UTF-8">
     <title>Profil</title>
     <style>
-        section{
+        #my-section{
             display: none;
         }
     </style>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
 <nav>
@@ -52,21 +53,31 @@ if (!isset($_SESSION['prof'])){
 
 <a href="deconnexion.php"> Se déconnecter </a>
 <h1>VOTRE PROFIL :</h1>
+
 <?php
 $sql="select * from prof where idprof='".$_SESSION['prof']."'";
 $result=mysqli_query($link,$sql);
 $data= mysqli_fetch_assoc($result);
 ?>
-<?php echo"<p><img src=photo/".$data["photo"]."></p>"; ?>
-<h3>Nom</h3>
-<?php  echo $data["nom"];?>
-<h3>Prenom</h3>
-<?php echo $data["prenom"]; ?>
-</br>
-<h3>Email</h3>
-<?php echo $data["email"];?>
-</br>
-<button onclick="myFunction()">modifier le profil</button>
+<section class="card">
+    <aside>
+<?php echo"<p><img src=images/".$data["photo"]."></p>"; ?>
+    </aside>
+    <article>
+<p><span>Nom:</span>
+<?php  echo $data["nom"];?></p>
+<p><span>Prenom:</span>
+<?php echo $data["prenom"]; ?></p>
+<p><span>Email:</span>
+<?php echo $data["email"];?></p>
+    </article>
+
+</section>
+
+
+
+
+<button onclick="myFunction()" class="button">modifier le profil</button>
 <script>
     function myFunction() {
         var section = document.getElementById("my-section");
@@ -74,7 +85,7 @@ $data= mysqli_fetch_assoc($result);
     }
 </script>
 <section id="my-section">
-    <form action="#" method="post" enctype="multipart/form-data">
+    <form action="#" method="post" enctype="multipart/form-data" class="myform">
         <h4>clicker sur modifier apres changement de vos donner</h4>
         <hr>
 
@@ -82,14 +93,14 @@ $data= mysqli_fetch_assoc($result);
         <input type="text" name="nom" value=<?php echo $data["nom"];?>><br>
         <label for="prenom" >Prénom  </label>
         <input type="text" name="prenom" value=<?php echo $data["prenom"];?>><br>
-        <label for="email">Nom  </label>
+        <label for="email">email  </label>
         <input type="text" name="email" value=<?php echo $data["email"];?>><br>
         <label for="mdp">mot de passe </label>
         <input type="password" name="mdp" value=<?php echo $data["mdp"];?>><br>
         <h4>Photo</h4><hr>
-        <label for="image">Déposez votre nouvelle image </label>
-        <input type="file" name="fichier"><br><br>
-        <input type="submit" name="envoyer" value="modifier" class="submit">
+        <label for="image">Déposez votre nouvelle image </label><br>
+        <input type="file" name="fichier">
+        <input type="submit" name="envoyer" value="modifier">
     </form>
 </section>
 </body>

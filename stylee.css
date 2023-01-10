@@ -94,7 +94,7 @@ body{
     border: none;
     width: 100%;
    }
-   input[type=submit]:hover {
+   input[type=submit],.button:hover {
     background-color: white;
     color: #007DFF;
     border: 1px solid #007DFF;
@@ -110,8 +110,6 @@ body{
    aside{
      width:30%;
        height: 100%;
-
-
    }
    article {
        width:60%;
@@ -119,13 +117,13 @@ body{
        height: 100%;
        text-align: left;
        font-size: 40px;
-       padding-top: 12.4%;
+       padding-top: 4.4%;
        padding-left: 10%;
 
 
    }
-span{
-    display: inline-block;
+p{
+
     width: 100%;
 
 }
@@ -139,5 +137,30 @@ span{
        width:68.1%;
        margin-left: 15%;
    }
-   
+span{
+    color:dodgerblue;
+    font-weight: bold;
+}
+.button{
+    background-color: #007DFF;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0px 4px 4px;
 
+    border: none;
+    width: 50%;
+    height:60px;
+}
+.myform {
+    margin-left: 15%;
+    width:68%;
+    padding: 30px;
+    border: 1px solid #f1f1f1;
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    text-align: left;
+}
+.myform label,h4{
+font-weight: bold;
+    text-transform: capitalize;
+}
