@@ -13,7 +13,7 @@
     <nav class="menu"> 
         <ul>
 
-            <li><a href="welcome.php">logo ensa</a></li>
+            <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
@@ -28,7 +28,7 @@
                 if (!isset($_SESSION['admin']) && !isset($_SESSION['prof']))
                 {
             ?>
-                    <li><a href="seconnecter.php">Se connecter</a></li>
+                    <li><a href="welcome.php">Se connecter</a></li>
             <?php 
                 } else {
                     echo "<li><a href=";
@@ -85,7 +85,8 @@
                         break;
                     }
                 }   
-            } elseif ($_SESSION['session'] == "admin")  {
+            }
+            elseif ($_SESSION['session'] == "admin")  {
                 $sql = "select idadmin, email, mdp from admin";
                 $res = mysqli_query($link, $sql) or die ("Erreur de connexion à la base.");
                 while ($data = mysqli_fetch_assoc($res)){

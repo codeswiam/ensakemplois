@@ -15,8 +15,8 @@ if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
 </head>
 <body>
 <header>
-<h2> bienvenue sur EMPLOI ENSAK </h2>
-<img src="photo/ensak.jpg" width="900" height="500" id="ensak">
+    <h2> bienvenue sur <span>EMPLOI ENSAK</span> </h2>
+<img src="photo/cookie.jpg" width="900" height="500" id="ensak">
 </header>
 <section>
     <h4>Vous êtes ?</h4>
