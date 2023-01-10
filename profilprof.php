@@ -129,7 +129,7 @@ if(isset($_POST['envoyer'])){
     else{
         $ph_name=$data["photo"];}
 
-    $user=$_SESSION['id_login'];²
+    $user=$_SESSION['id_login'];
     $sql="update prof set
 NOM='$nom',PRENOM='$prenom',email='$email',photo='$ph_name', mdp='$mdp' where
 idprof='$prof'";
