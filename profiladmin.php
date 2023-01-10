@@ -16,7 +16,7 @@
 <body>
     <nav> 
         <ul>
-            <li>Logo Ensa</li>
+            <li>Logo Ensa 1</li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
