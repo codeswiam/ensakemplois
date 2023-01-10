@@ -4,10 +4,11 @@ body{
     color: #1a202c;
     text-align: center;
     background-color: #e2e8f0;    
-}
+    }
+
 .card {
     padding: 15px;
-}
+      }
 .card {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
 }
@@ -15,22 +16,24 @@ body{
 .card {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: .25rem;
-}
+    width:70%;
+    margin-left: 15%;
+    }
 
 .card{
-    flex: 1 1 auto;
+    height:80%;
     min-height: 1px;
     padding: 1rem;
-    
+    flex-wrap: wrap;
+    }
 
-}
 .shadow-none {
     box-shadow: none!important;
 }
@@ -42,18 +45,20 @@ body{
 }
 
    Form {
-    width:80%;
+    width:98%;
     padding: 30px;
     border: 1px solid #f1f1f1;
     background: #fff;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
    }
 
-   #container h1{
+   #container h1
+   {
     width: 38%;
     margin: 0 auto;
     padding-bottom: 10px;
    }
+
    input[type=text] ,select{
     width: 100%;
     padding: 12px 20px;
@@ -101,6 +106,38 @@ body{
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+   }
+   aside{
+     width:30%;
+       height: 100%;
+
+
+   }
+   article {
+       width:60%;
+       display: inline-block;
+       height: 100%;
+       text-align: left;
+       font-size: 40px;
+       padding-top: 12.4%;
+       padding-left: 10%;
+
+
+   }
+span{
+    display: inline-block;
+    width: 100%;
+
+}
+   #image
+   {
+       width:400px;
+       height: 100%;
+   }
+   #form2{
+
+       width:68.1%;
+       margin-left: 15%;
    }
    
 
