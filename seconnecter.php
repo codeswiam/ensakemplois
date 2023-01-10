@@ -49,7 +49,7 @@
             echo "<h1>bienvenue dans l'espace professeur</h1>";
             echo "<h4>connecter-vous a votre compte</h4>";
         }
-            elseif ($_SESSION['session'] == "admin"){
+            else if ($_SESSION['session'] == "admin"){
                 echo "<h1>bienvenue dans l'espace adminstrateur</h1>";
                 echo "<h4>connecter-vous a votre compte</h4>";
         }?>
@@ -70,7 +70,6 @@
     </form>
     <?php
         if (isset($_POST['connexion'])){
-            session_start();
             $email = $_POST['email'];
             $mdp = $_POST['mdp'];
             $trouve = 0;
@@ -80,20 +79,18 @@
                 while ($data = mysqli_fetch_assoc($res)){
                     if ($email == $data['email'] and $mdp == $data['mdp']){
                         $trouve = 1;
-                        session_start();
                         $_SESSION['prof'] = $data['idprof'];
                         header("Location: acceuil.php");
                         break;
                     }
                 }   
             }
-            elseif ($_SESSION['session'] == "admin")  {
+            else if ($_SESSION['session'] == "admin")  {
                 $sql = "select idadmin, email, mdp from admin";
                 $res = mysqli_query($link, $sql) or die ("Erreur de connexion à la base.");
                 while ($data = mysqli_fetch_assoc($res)){
                     if ($email == $data['email'] and $mdp == $data['mdp']){
                         $trouve = 1;
-                        session_start();
                         $_SESSION['admin'] = $data['idadmin'];
                         header("Location: acceuil.php");
                         break;
