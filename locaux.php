@@ -49,8 +49,8 @@ echo" </table>";
 
 <h3>ajouter salle</h3> </br>
  </br>
- <form action="#" method="post">
-<td><label for="ajouter salle" >salle</label></td>
+ <form action="traitementsalle.php" method="post">
+<td><label for="salle" >salle</label></td>
 <td><input type="texte" name="numsalle" ></td>
     </br>
     </br>
@@ -60,27 +60,13 @@ echo" </table>";
     </br>
     <td><label for="capp" >capp acceuil</label></td>
     <td><input type="texte" name="cap_acceuil" ></td>
-
+    </br>
     <input type="submit" value="valider" name="valider" > </br>
 </br>
-
-    <?php
-if(isset($_POST['valider']))
-{
-   
-    $salles=$_POST['numsalle'];
-    $bat=$_POST['batiment'];
-    $cappa=$_POST['cap_acceuil'];
-   
-        $sql22="INSERT INTO salle values('$bat','$salles','$cappa')";
-        $result22 = mysqli_query($link,$sql22) ;
-  
-}
-
-?>
+            </form>
 
 <!-- AJOUTER BATIMENT -->
-<form action="#" method="post">
+<form action="traitementbat.PHP" method="post">
 <h3>ajouter batiment</h3> </br>
  </br>
 <td><label for="batiment" >batiment</label></td>
@@ -90,16 +76,7 @@ if(isset($_POST['valider']))
     </br>
     <input type="submit" value="valider" name="valider" > </br>
 </br>
-
-    <?php
-if(isset($_POST['valider']))
-{
-	$batimenst=$_POST['batiment'];  
-        $sql21="INSERT INTO batiment values ('$batimenst')";
-        $result2 = mysqli_query($link,$sql21) ;
-  
+</form>
    
-}
-?>
 
 
