@@ -16,6 +16,7 @@
     <meta charset="UTF-8">
     <title>Ajout Module</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
     <script type="text/javascript">
         function autoSubmitSem() {
             with (window.document.form) {

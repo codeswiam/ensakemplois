@@ -46,13 +46,13 @@
     </nav>
 
     <h1>FILIÈRES</h1>
-
+   
     <ul> 
         <li><a href="ajouterfiliere.php">Ajouter filière</a></li>
         <li><a href="ajoutertd.php">Ajouter Groupe TD</a></li>
         <li><a href="ajoutertp.php">Ajouter Groupe TP</a></li>                                  
     </ul>                                    
-
+            
     <?php
         echo"<table border=1>";
         echo"<tr>";

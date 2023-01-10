@@ -13,6 +13,8 @@
     <meta charset="UTF-8">
     <title>Locaux</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
+    
 </head>
 <body>
     <nav class="menu"> 
@@ -52,7 +54,7 @@
 
         <div>
             <label for="batiment" >Batiment</label>
-            <input type="texte" name="batiment" required>
+            <input type="text" name="batiment" required>
         </div>
         
         <input type="submit" value="Ajouter" name="ajoutbat" >
@@ -87,7 +89,7 @@
 
         <input type="submit" value="Ajouter" name="ajoutsalle" > 
     </form>
-
+                </br></br>
     <table border=1>
         <tr>
             <th>Batiment</th>

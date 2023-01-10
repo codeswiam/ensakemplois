@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title>Ajout Filière</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
     <nav class="menu"> 
