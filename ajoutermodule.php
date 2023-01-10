@@ -57,12 +57,13 @@
             ?>
         </ul>
     </nav>
-    <h1>Ajouter Module 2</h1>
+    <h1>Ajouter Module</h1>
     <form action="#" method="post" name="form">
 
         <div>
             <label for="sem">Semestre</label>
             <select name="sem" onchange="autoSubmitSem();">
+            <option value="S0"> Sélectionner </option>
             <?php
                 $sql = "SELECT * from semestre";
                 $result = mysqli_query($link,$sql);
@@ -82,7 +83,7 @@
         </div>
 
         <?php
-            if (isset($getsem) && $getsem != "S0" && $getsem != "S1" && $getsem != "S2" && $getsem != "S3" && $getsem != "S4") {
+            if (isset($getsem) && $getsem != "S0") {
                 ?>
                 <div>
                     <label>Filière</label>
@@ -124,7 +125,7 @@
     </form>
     <?php
         if(isset($_POST['ajoutmod'])){
-            $nommod=$_POST["nommod"];
+            $nommod=addslashes($_POST["nommod"]);
             $idsem=$_POST["sem"];
             $choix=$_POST["prof"];
             $choix2=$_POST["fil"];

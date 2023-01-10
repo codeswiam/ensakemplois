@@ -80,7 +80,6 @@ if(isset($_POST['envoyer'])){
 
     echo"<br>";
 
-    print "<a href='professeur.php'>Retour page professeur</a>";
     if(isset($_FILES['fichier']) and $_FILES['fichier']['error']==0){
         echo'done';
         $dossier = 'images/'; // dossier où sera déplacé le fichier

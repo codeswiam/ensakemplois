@@ -33,14 +33,11 @@ if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
 </html>
 <?php
 if (isset($_POST['prof'])) {
-
-        session_start();
         $_SESSION['session'] = "prof";
         echo  $_SESSION['session'];
         header("Location: seconnecter.php"); }
 
 if (isset($_POST['admin'])) {
-        session_start();
         $_SESSION['session'] = "admin";
         header("Location: seconnecter.php");
     }
