@@ -27,7 +27,7 @@
     <nav class="menu"> 
         <ul>
             <li><img src="images/logo1.png" width="90px" height="30px"></li>
-            
+        
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
