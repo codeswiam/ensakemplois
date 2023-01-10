@@ -490,7 +490,7 @@
         }
         
     ?>
-    <a href="acceuil.php">Retour</a>
+    <a href="acceuil.php" id="retour">Retour</a>
     <?php
         if(isset($_POST['ajouter']))
         {

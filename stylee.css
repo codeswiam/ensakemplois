@@ -70,6 +70,15 @@ body{
     border: 1px solid #ccc;
     box-sizing: border-box;
    }
+   #retour, .link{
+    background-color: #007DFF;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    width: 100%;
+    text-decoration: none;
+   }
    
    /* Set a style for all buttons */
    input[type=submit] {

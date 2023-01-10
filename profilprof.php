@@ -12,6 +12,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Profil</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
     <style>
         section{
             display: none;
@@ -57,6 +59,7 @@
     $result=mysqli_query($link,$sql);
     $data= mysqli_fetch_assoc($result);
     ?>
+    <div class="card">
     <?php echo"<p><img src=photo/".$data["photo"]."></p>"; ?>
     <h3>Nom</h3>
     <?php  echo $data["nom"];?>
@@ -92,6 +95,7 @@
             <input type="submit" name="envoyer" value="modifier" class="submit">
         </form>
     </section>
+    </div>
 </body>
 
 </html>

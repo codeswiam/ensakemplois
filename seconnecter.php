@@ -8,6 +8,10 @@
     <title>Connexion</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="stylee.css">
+    <style>
+        Form {
+    width:100%;}
+        </style>
 </head>
 <body>
     <nav class="menu"> 
