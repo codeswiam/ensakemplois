@@ -18,10 +18,10 @@
             $_COOKIE['semfi'] = $_POST['semfi'];
         }
     }
-    if (isset($_GET["jour"])){
+    if (isset($_GET["jour"])) {
         $j = $_GET["jour"];
     }
-    if (isset($_GET["heure"])){
+    if (isset($_GET["heure"])) {
         $h = $_GET["heure"];
     }
     if (isset($_GET["mod"]) && $_GET["mod"] != 0) {
@@ -36,12 +36,6 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="stylee.css" />
-<style>
-    form{
-        width:100%;
-    }
-    </style>
     
 <head>
     <meta charset="UTF-8">
@@ -117,161 +111,164 @@
         </ul>
     </nav>
     
-    <h1> Programmer un rattrapage </h1>
-    <form action="#" method="post" name="form">
-
-        <div>
-            <label for="jour">Jour:</label>
-            <select name="jour" id="" onchange="autoSubmitJour();">
-                <option value="0"> Sélectionner </option>
-                <?php
-                    $sql = "SELECT * from jour";
-                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                    while ($data= mysqli_fetch_assoc($result)) {
-                        echo ("<option value=\"{$data['idjour']}\" ");
-                        if (isset($j)){
-                            if ($j == $data['idjour'])
-                                echo "selected";
-                        }
-                        echo ">";
-                        echo $data["nomjour"];
-                        echo'</option>';
-                    }
-                ?>
-            </select>
-        </div>
-
-        <div>
-            <label for="heure">Horaire:</label>
-            <select name="heure" id="" required onchange="autoSubmitHeure();">
-                <option value="0"> Sélectionner </option>
-                <?php
-                    if (isset($j)){
-                        $sql = "SELECT * from creneau 
-                        where idcreneau not in 
-                        (select creneau.idcreneau from creneau, seancefiliere, seance 
-                        where seancefiliere.idseance= seance.idseance 
-                        and seance.idcreneau = creneau.idcreneau and idjour='".$j."')"; // you don't need creneau ??? seance has idcreneau
-                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                        while ($data= mysqli_fetch_assoc($result)) {
-                            echo ("<option value=\"{$data['idcreneau']}\" ");
-                            if (isset($h)){
-                                if ($h == $data['idcreneau'])
-                                    echo "selected";
-                            }
-                            echo ">";
-                            echo $data["starttime"].' - '.$data["endtime"];
-                            echo'</option>';
-                        }
-                    }  
-                ?>
-            </select>
-        </div>
-
-        <div>
-            <label for="mod">Module:</label>
-            <select name="mod" id="" required onchange="autoSubmitMod();">
-                <option value="0"> Sélectionner </option>
-                <?php
-                        $sql = "SELECT nommodule, idprofmod from module, modulefiliere, profmod 
-                        where module.idmod = modulefiliere.idmod 
-                        and module.idmod = profmod.idmod
-                        and idprof='".$prof."' 
-                        and idsem_fi= '".$fil."'";
-                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                        while ($data= mysqli_fetch_assoc($result)) {
-                            echo ("<option value=\"{$data['idprofmod']}\" ");
-                            if (isset($module)){
-                                if ($module == $data['idprofmod'])
-                                    echo "selected";
-                            }
-                            echo ">";
-                            echo $data["nommodule"];
-                            echo'</option>';
-                        }
-                ?>
-            </select>
-        </div>
-
-        <div>
-            <label for="type">Type de Séance:</label>
-            <select name="type" id="" required onchange="autoSubmitTyp();">
-                <option value="TYP"> Sélectionner </option>
-                <?php
-                    $sql = "SELECT * from typeseance";
-                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                    while ($data= mysqli_fetch_assoc($result)) {
-                        echo ("<option value=\"{$data['type']}\" ");
-                        if (isset($typ)){
-                            if ($typ == $data['type'])
-                                echo "selected";
-                        }
-                        echo ">";
-                        echo $data["type"];
-                        echo'</option>';
-                    }
-                ?>
-            </select>
-        </div>
-
-        <?php
-            if (isset($typ) && $typ != "TYP" && $typ != "Cours"){
-                ?>
-                <div>
-                    <label for="grp">Groupe:</label>
-                    <select name="grp" id="" required onchange="autoSubmitGrp();">
-                        <option value="0"> Sélectionner </option>
-                        <?php
-                            if ($typ == "TD")
-                                $sql = "SELECT groupetd as groupe, nomgrp from groupetd where idsem_fi = '".$fil."'";
-                            if ($typ == "TP")
-                                $sql = "SELECT groupetp as groupe, nomgrp from groupetp where idsem_fi = '".$fil."'";
-                            $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                            while ($data= mysqli_fetch_assoc($result)) {
-                                echo ("<option value=\"{$data['groupe']}\" ");
-                                if (isset($gr)){
-                                    if ($gr == $data['groupe'])
-                                        echo "selected";
-                                }
-                                echo ">";
-                                echo $data["nomgrp"];
-                                echo'</option>';
-                            }
-                        ?>
-                    </select>
-                </div>
-                <?php
-            }
-        ?>
-
-        
-        <div>
-            
-            <label for="salle">Local:</label>
-            <select name="salle" id="" required>
-                <option value="0"> Sélectionner </option>
-                <?php
-                    if (isset($j) && isset($h)){
-                        $sql = "SELECT * from salle where idsalle not in (select idsalle from seance where idjour='".$j."' and idcreneau='".$h."')";
-                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                        while ($data= mysqli_fetch_assoc($result)) {
-                            echo ("<option value=\"{$data['idsalle']}\">");
-                            echo $data["nombatiment"]." ".$data["numsalle"];
-                            echo'</option>';
-                        }
-                    }
-                ?>
-            </select>
-
-        </div>
-
-        <input type="submit" name="ajoutratt" value="Programmer Rattrapage">
-
-    </form>
+    
     <!-- affichage emploi -->
     <?php
         if (isset($_COOKIE['semfi'])){
             $fil = $_COOKIE['semfi'];
+            ?>
+                <h1> Programmer un rattrapage </h1>
+                <form action="#" method="post" name="form">
+
+                    <div>
+                        <label for="jour">Jour:</label>
+                        <select name="jour" id="" onchange="autoSubmitJour();">
+                            <option value="0"> Sélectionner </option>
+                            <?php
+                                $sql = "SELECT * from jour";
+                                $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                while ($data= mysqli_fetch_assoc($result)) {
+                                    echo ("<option value=\"{$data['idjour']}\" ");
+                                    if (isset($j)){
+                                        if ($j == $data['idjour'])
+                                            echo "selected";
+                                    }
+                                    echo ">";
+                                    echo $data["nomjour"];
+                                    echo'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="heure">Horaire:</label>
+                        <select name="heure" id="" required onchange="autoSubmitHeure();">
+                            <option value="0"> Sélectionner </option>
+                            <?php
+                                if (isset($j)){
+                                    $sql = "SELECT * from creneau 
+                                    where idcreneau not in 
+                                    (select creneau.idcreneau from creneau, seancefiliere, seance 
+                                    where seancefiliere.idseance= seance.idseance 
+                                    and seance.idcreneau = creneau.idcreneau and idjour='".$j."')"; // you don't need creneau ??? seance has idcreneau
+                                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                    while ($data= mysqli_fetch_assoc($result)) {
+                                        echo ("<option value=\"{$data['idcreneau']}\" ");
+                                        if (isset($h)){
+                                            if ($h == $data['idcreneau'])
+                                                echo "selected";
+                                        }
+                                        echo ">";
+                                        echo $data["starttime"].' - '.$data["endtime"];
+                                        echo'</option>';
+                                    }
+                                }  
+                            ?>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="mod">Module:</label>
+                        <select name="mod" id="" required onchange="autoSubmitMod();">
+                            <option value="0"> Sélectionner </option>
+                            <?php
+                                    $sql = "SELECT nommodule, idprofmod from module, modulefiliere, profmod 
+                                    where module.idmod = modulefiliere.idmod 
+                                    and module.idmod = profmod.idmod
+                                    and idprof='".$prof."' 
+                                    and idsem_fi= '".$fil."'";
+                                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                    while ($data= mysqli_fetch_assoc($result)) {
+                                        echo ("<option value=\"{$data['idprofmod']}\" ");
+                                        if (isset($module)){
+                                            if ($module == $data['idprofmod'])
+                                                echo "selected";
+                                        }
+                                        echo ">";
+                                        echo $data["nommodule"];
+                                        echo'</option>';
+                                    }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="type">Type de Séance:</label>
+                        <select name="type" id="" required onchange="autoSubmitTyp();">
+                            <option value="TYP"> Sélectionner </option>
+                            <?php
+                                $sql = "SELECT * from typeseance";
+                                $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                while ($data= mysqli_fetch_assoc($result)) {
+                                    echo ("<option value=\"{$data['type']}\" ");
+                                    if (isset($typ)){
+                                        if ($typ == $data['type'])
+                                            echo "selected";
+                                    }
+                                    echo ">";
+                                    echo $data["type"];
+                                    echo'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+
+                    <?php
+                        if (isset($typ) && $typ != "TYP" && $typ != "Cours"){
+                            ?>
+                            <div>
+                                <label for="grp">Groupe:</label>
+                                <select name="grp" id="" required onchange="autoSubmitGrp();">
+                                    <option value="0"> Sélectionner </option>
+                                    <?php
+                                        if ($typ == "TD")
+                                            $sql = "SELECT groupetd as groupe, nomgrp from groupetd where idsem_fi = '".$fil."'";
+                                        if ($typ == "TP")
+                                            $sql = "SELECT groupetp as groupe, nomgrp from groupetp where idsem_fi = '".$fil."'";
+                                        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                        while ($data= mysqli_fetch_assoc($result)) {
+                                            echo ("<option value=\"{$data['groupe']}\" ");
+                                            if (isset($gr)){
+                                                if ($gr == $data['groupe'])
+                                                    echo "selected";
+                                            }
+                                            echo ">";
+                                            echo $data["nomgrp"];
+                                            echo'</option>';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <?php
+                        }
+                    ?>
+
+                    
+                    <div>
+                        
+                        <label for="salle">Local:</label>
+                        <select name="salle" id="" required>
+                            <option value="0"> Sélectionner </option>
+                            <?php
+                                if (isset($j) && isset($h)){
+                                    $sql = "SELECT * from salle where idsalle not in (select idsalle from seance where idjour='".$j."' and idcreneau='".$h."')";
+                                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                                    while ($data= mysqli_fetch_assoc($result)) {
+                                        echo ("<option value=\"{$data['idsalle']}\">");
+                                        echo $data["nombatiment"]." ".$data["numsalle"];
+                                        echo'</option>';
+                                    }
+                                }
+                            ?>
+                        </select>
+
+                    </div>
+
+                    <input type="submit" name="ajoutratt" value="Programmer Rattrapage">
+
+                </form>
+            <?php
             $sql1 = "SELECT nomsem from semestre, sem_fi where semestre.idsem=sem_fi.idsem and idsem_fi='".$fil."'";
             $res1 = mysqli_query($link, $sql1) or die("Erreur selection semestres");
             while ($semestre= mysqli_fetch_assoc($res1)) {
