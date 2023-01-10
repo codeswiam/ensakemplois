@@ -43,7 +43,8 @@
     </nav>
     
     <form action="#" method="post" name="form">
-        <? session_start();
+        <?php
+        session_start();
         if ($_SESSION['session'] == "prof"){
             echo "<h1>bienvenue dans l'espace professeur</h1>";
             echo "<h4>connecter-vous a votre compte</h4>";
