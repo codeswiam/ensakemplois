@@ -25,9 +25,10 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav> 
+    <nav class="menu"> 
         <ul>
             <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>

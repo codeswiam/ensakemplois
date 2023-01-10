@@ -1,6 +1,16 @@
+<?PHP
+    session_start();
+    include ("connexion.php");
+    if (!isset($_SESSION['admin'])){
+        header("Location: acceuil.php");
+    } else {
+        $admin = $_SESSION['admin'];
+    }
+?>
 <html>
 <head>
-    <title>ajout prof</title>
+    <title>Ajout Professeur</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <style>
     .pseudo{
@@ -12,37 +22,56 @@
         width: 501px;
     }
 </style>
-<link rel="stylesheet" href="style.css">
 <body>
+    <nav class="menu"> 
+        <ul>
+            <li>logo ensa</li>
+            <li><a href="acceuil.php">Acceuil</a></li>
+            <?php
+                if (isset($_SESSION['admin']))
+                {
+            ?>
+                    <li><a href="filiere.php">Filières</a></li>
+                    <li><a href="module.php">Modules</a></li>
+                    <li><a href="professeur.php">Professeurs</a></li>
+                    <li><a href="locaux.php">Locaux</a></li>
+            <?php
+                }
+                if (!isset($_SESSION['admin']) && !isset($_SESSION['prof']))
+                {
+            ?>
+                    <li><a href="seconnecter.php">Se connecter</a></li>
+            <?php 
+                } else {
+                    echo "<li><a href=";
+                    if (isset($_SESSION['prof']))
+                        echo "profilprof.php";
+                    if (isset($_SESSION['admin']))
+                        echo "profiladmin.php";
+                    echo ">Profil</a></li>";
+                }
+            ?>
+        </ul>
+    </nav>
+
+    <h1>Ajout d'un professeur</h1>
 
 
 <form action=# method="post" enctype="multipart/form-data">
 
 
-    <h4> NOM:</h4><input type="texte" name="txt_nom"  ></br>
-    <h4> PRENOM:</h4><input type="texte" name="txt_prenom"  ></br>
-    <h4>email:</h4> <input type="email" name="txt_email" ></br>
-    <h4>mot de passe:</h4> <input type="password" name="txt_pass" ></br>
-
-
-
-    <h4> image:</h4><input type="file" name="fichier" size="30"><br/>
+    <h4>Nom:</h4><input type="text" name="txt_nom"  ></br>
+    <h4>Prénom:</h4><input type="text" name="txt_prenom"  ></br>
+    <h4>Email:</h4> <input type="email" name="txt_email" ></br>
+    <h4>Mot de passe:</h4> <input type="password" name="txt_pass" ></br>
+    <h4>Image:</h4><input type="file" name="fichier" size="30"><br/>
     </br>
 
 
     <input type="submit" name="envoyer" value="ajouter"></br>
 </form>
-
-
-
-</body>
-</html>
 <?php
 if(isset($_POST['envoyer'])){
-    include ("connexion.php");
-    /*$sql="select * from user";
-    $result=mysqli_query($link,$sql);
-    $row = mysqli_fetch_assoc($result);*/
     $email=$_POST["txt_email"];
     $pass=$_POST["txt_pass"];
     $nom=$_POST["txt_nom"];
@@ -76,17 +105,19 @@ if(isset($_POST['envoyer'])){
         }
         $ph_name=$nom_photo;}
     else{
-        $ph_name="2.png";}
+        $ph_name="inconnu.jpeg";}
     $sql="insert into prof (NOM,PRENOM,mdp,email,photo) 
 values ('$pass','$nom','$prenom','$email','$ph_name')";
     $resultat=mysqli_query($link,$sql);
     if ($resultat==true) {
-        echo "SUCCESS,professeur ".$nom ."ajouté !";
-
-
+        header("Location: professeur.php");
     }
     else
     {
         echo "Erreur lors de la création de votre compte";
     }}
 ?>
+<a href="professeur.php">Retour</a>
+
+</body>
+</html>

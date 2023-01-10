@@ -12,9 +12,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Ajout Filière</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav> 
+    <nav class="menu"> 
         <ul>
             <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
@@ -69,7 +70,6 @@
         <input type="submit" name="ajoutfil" value="Ajouter Filière">
 
     </form>
-    <a href="filiere.php">Retour</a>
     <?php
         if(isset($_POST['ajoutfil'])){
             $nom=$_POST["nom"];
@@ -87,5 +87,6 @@
             }
         }
     ?>
+    <a href="filiere.php">Retour</a>
 </body>
 </html>

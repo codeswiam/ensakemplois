@@ -20,10 +20,11 @@
             }
         }
     </script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav> 
+    <nav class="menu"> 
         <ul>
             <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
@@ -54,13 +55,13 @@
         </ul>
     </nav>
 
-    <h1> Acceuil 2</h1>
+    <h1> Organisation des enseignements </h1>
 
     <?php
         if (isset($_SESSION['admin']))
         {
     ?>
-            <div> <h2> Modifier Emploi </h2>
+            <div id="modifieremploi"> <h2> Modifier Emploi </h2>
                 <form action="modifieremploi.php" method="post" name="form">
                     <div>
                         <label for="semestre">Semestre:</label>
@@ -113,7 +114,7 @@
         if (isset($_SESSION['prof']))
         {
     ?>
-            <div> <h2> Programmer un rattrapage </h2>
+            <div id="ajoutratt"> <h2> Programmer un rattrapage </h2>
                 <form action="rattrapage.php" method="post" name="form">
                     <div>
                         <label for="semfi">Filière:</label>
@@ -162,7 +163,7 @@
             where seance.idprofmod = profmod.idprofmod and module.idmod = profmod.idmod and module.idsem='".$sem."'";
             $res11 =  mysqli_query($link, $sql11) or die("Erreur selection seances du semestre");
             if (mysqli_num_rows($res11) != 0){
-                echo "<h2>".$semestre['nomsem']."</h2>";
+                echo "<h2 class=\"sem\">".$semestre['nomsem']."</h2>";
             } 
             while ($filiere= mysqli_fetch_assoc($res2)) {
                 $fil = $filiere['idsem_fi'];
@@ -177,11 +178,10 @@
                 $sql = "select * from seancefiliere";
                 $res = mysqli_query($link, $sql) or die("Erreur selection seance de filiere");
                 if (mysqli_num_rows($res) != 0) { 
-                    echo "<h3>".$nomfiliere."</h3>";
                     echo "<div class=\"emploi\">";
                     echo "<div class=\"titre\">Organisation des enseignements<br>".$nomfiliere." <span class=\"semestre\">(".$nomsem.")</span></div>";
                     echo "<table border=\"2\">";
-                    echo "<th> Jour / Horaire </th>";
+                    echo "<th class=\"jh\"> Jour / Horaire </th>";
 
                     $sql4 = "select * from creneau";
                     $res4 = mysqli_query($link, $sql4) or die("Erreur selection creneau");
@@ -197,7 +197,7 @@
                         echo "<tr>";
                         
                         // affichage des jours
-                        echo "<td>".$jours['nomjour']."</td>";
+                        echo "<td class=\"jour\">".$jours['nomjour']."</td>";
                         $res4 = mysqli_query($link, $sql4) or die("Erreur selection creneau");
                         while ($horaire= mysqli_fetch_assoc($res4)){
                             $creneau = $horaire['idcreneau'];
@@ -308,8 +308,8 @@
                         }
                         echo "</tr>";
                     }
-                    echo "</div>";
                     echo "</table>";
+                    echo "</div>";
                 }
                 
             }

@@ -12,9 +12,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Filières</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav> 
+    <nav class="menu"> 
         <ul>
             <li>logo ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
@@ -49,8 +50,8 @@
 
     <ul> 
         <li><a href="ajouterfiliere.php">Ajouter filière</a></li>
-        <li><a href="ajoutertd.php">Ajouter un groupe de td</a></li>
-        <li><a href="ajoutertp.php">Ajouter un groupe de tp</a></li>                                  
+        <li><a href="ajoutertd.php">Ajouter Groupe TD</a></li>
+        <li><a href="ajoutertp.php">Ajouter Groupe TP</a></li>                                  
     </ul>                                    
 
     <?php
