@@ -54,18 +54,25 @@
         $result=mysqli_query($link,$sql);
         $data= mysqli_fetch_assoc($result);
     ?>
-    <div class="card">
-    <?php echo"<p><img  id='image' src=images/".$data["photo"]."></p>"; ?>
-    <h3>Nom : </h3> <?php  echo $data["nom"];?>
-    <h3>Prenom : </h3>
+    <section class="card">
+        <aside>
+    <?php echo"<p><img  id='image' src=images/".$data["photo"]."></p>"; ?></aside>
+        <article>
+    <span>Nom :
+            <?php  echo $data["nom"];?>
+    </span>
+            <span>Prenom :
     <?php echo $data["prenom"]; ?>
+            </span>
 </br>
-    <h3>Email : </h3>
-    <?php echo $data["email"];?>
+            <span>Email:
+           <?php echo $data["email"];?>
+            </span>
 </br>
+        </article>
     
-            </div>
-            <form method="POST" action="#">
+            </section>
+            <form method="POST" action="#" id="form2">
     <input type="submit" value="Se déconnecter" name="deconnecter"> 
             </form>  
 
