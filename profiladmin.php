@@ -68,11 +68,6 @@
             </form>  
             </div>
 
-    <?php
-        if(isset($_POST["deconnecter"])){
-            session_destroy();
-            header("location: seconnecter.php");
-        }
-    ?>
+  
 </body>
 </html>
