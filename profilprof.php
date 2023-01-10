@@ -12,12 +12,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Profil</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        section{
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <nav class="menu"> 
+    <nav> 
         <ul>
-            <li>logo ensa</li>
+            <li>Logo Ensa</li>
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
                 if (isset($_SESSION['admin']))
@@ -46,6 +50,95 @@
         </ul>
     </nav>
 
-    <a href="deconnexion.php"> Se déconnecter </a> 
+    <a href="deconnexion.php"> Se déconnecter </a>
+    <h1>VOTRE PROFIL :</h1>
+    <?php
+    $sql="select * from prof where idprof='".$_SESSION['prof']."'";
+    $result=mysqli_query($link,$sql);
+    $data= mysqli_fetch_assoc($result);
+    ?>
+    <?php echo"<p><img src=photo/".$data["photo"]."></p>"; ?>
+    <h3>Nom</h3>
+    <?php  echo $data["nom"];?>
+    <h3>Prenom</h3>
+    <?php echo $data["prenom"]; ?>
+    </br>
+    <h3>Email</h3>
+    <?php echo $data["email"];?>
+    </br>
+    <button onclick="myFunction()">modifier le profil</button>
+    <script>
+        function myFunction() {
+            var section = document.getElementById("my-section");
+            section.style.display = "block";
+        }
+    </script>
+    <section id="my-section">
+        <form action="#" method="post" enctype="multipart/form-data">
+            <h4>clicker sur modifier apres changement de vos donner</h4>
+            <hr>
+
+            <label for="nom">Nom  </label>
+            <input type="text" name="nom" value=<?php echo $data["nom"];?>><br>
+            <label for="prenom" >Prénom  </label>
+            <input type="text" name="prenom" value=<?php echo $data["prenom"];?>><br>
+            <label for="email">Nom  </label>
+            <input type="text" name="email" value=<?php echo $data["email"];?>><br>
+            <label for="mdp">mot de passe </label>
+            <input type="password" name="mdp" value=<?php echo $data["mdp"];?>><br>
+            <h4>Photo</h4><hr>
+            <label for="image">Déposez votre nouvelle image </label>
+            <input type="file" name="fichier"><br><br>
+            <input type="submit" name="envoyer" value="modifier" class="submit">
+        </form>
+    </section>
 </body>
+
 </html>
+<?php
+if(isset($_POST['envoyer'])){
+
+    $email=$_POST['email'];
+    $nom=$_POST["nom"];
+    $prenom=$_POST["prenom"];
+    $mdp=$_POST["mdp"];
+    $i=rand();
+
+    if(isset($_FILES['fichier']) and $_FILES['fichier']['error']==0){
+        echo'done';
+        $dossier = 'images/'; // dossier où sera déplacé le fichier
+        $nom_temporaire = $_FILES['fichier']['tmp_name'];
+        if( !is_uploaded_file($nom_temporaire) )
+        {exit("Le fichier est introuvable");}
+// on copie le fichier dans le dossier de destination
+
+        if($_FILES['fichier']['size']>=10000000)
+        {exit("fichier volumineux");}
+        $infofichier=pathinfo($_FILES['fichier']['name']);
+        $extension_upload=$infofichier['extension'];
+        $extension_upload=strtolower($extension_upload);
+        $extension_authorise=array('png','jpeg','jpg');
+        if(!in_array($extension_upload,$extension_authorise))
+        {exit("extension non authorisée svp(authorised(png,jpg,jpeg)");}
+        $nom_photo=$prof+$i.".".$extension_upload;
+        if(!move_uploaded_file($nom_temporaire,$dossier.$nom_photo))
+        {
+            exit("error");
+        }
+        $ph_name=$nom_photo;}
+    else{
+        $ph_name=$data["photo"];}
+
+    $user=$_SESSION['id_login'];
+    $sql="update prof set
+NOM='$nom',PRENOM='$prenom',email='$email',photo='$ph_name', mdp='$mdp' where
+idprof='$prof'";
+    $resultat=mysqli_query($link,$sql);
+    if ($resultat==true) {
+        echo " Votre compte a été modifié correctement";
+    }
+    else{echo "Erreur lors de la modification de votre compte";}}
+
+
+?>
+
