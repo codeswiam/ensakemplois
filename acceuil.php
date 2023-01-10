@@ -42,6 +42,7 @@
                 if (!isset($_SESSION['admin']) && !isset($_SESSION['prof']))
                 {
             ?>
+                    
                     <li><a href="welcome.php">Se connecter</a></li>
             <?php 
                 } else {

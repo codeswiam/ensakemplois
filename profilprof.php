@@ -145,4 +145,8 @@ idprof='$prof'";
 
 
 ?>
-
+<?php 
+    if(isset($_POST["deconnecter"])){
+        header("location: deconnexion.php");
+    }
+?>

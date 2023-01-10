@@ -11,6 +11,7 @@
 <head>
     <title>Ajout Professeur</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <style>
     .pseudo{
@@ -116,7 +117,7 @@ values ('$pass','$nom','$prenom','$email','$ph_name')";
         echo "Erreur lors de la création de votre compte";
     }}
 ?>
-<a href="professeur.php">Retour</a>
+<a href="professeur.php" id="retour">Retour</a>
 
 </body>
 </html>

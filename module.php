@@ -45,7 +45,7 @@
         </ul>
     </nav>
     <h1>Modules</h1>
-    <a href="ajoutermodule.php">Ajouter Module</a> 
+    
     <table border=1>
         <tr>
             <th>Semestre</th>      
@@ -95,4 +95,8 @@
             }
         ?>
     </table>
-    ?>
+    
+  
+    <br>
+    <a href="ajoutermodule.php" >Ajouter Module</a> 
+        </body>

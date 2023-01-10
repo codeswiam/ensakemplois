@@ -47,7 +47,7 @@
 
     <h1>PROFESSEURS</h1>
 
-    <a href="ajouterprof.php"> Ajouter un professeur </a>
+
 
 <table border=1>
     <tr >
@@ -71,4 +71,7 @@
     ?>
 </table>
 </body>
+<br>
+</br>
+<a href="ajouterprof.php"> Ajouter un professeur </a>
 </html>

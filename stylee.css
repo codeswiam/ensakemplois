@@ -67,7 +67,7 @@ body{
     border: 1px solid #ccc;
     box-sizing: border-box;
    }
-   input[type=password],input[type=email],input[type=number]{
+   input[type=password],input[type=email],input[type=number],input[type=fichier]{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -79,10 +79,11 @@ body{
     background-color: #007DFF;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin: 10px 0;
     border: none;
     width: 100%;
     text-decoration: none;
+    margin-top: 70px;
    }
    
    /* Set a style for all buttons */
