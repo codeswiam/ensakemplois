@@ -78,7 +78,6 @@
             $sql1="insert into filiere values ('".$abv."','".$nom."')";
             $result1 = mysqli_query($link,$sql1);
             foreach($choix as $value){
-                echo $value;
                 $sql="insert into sem_fi values(NULL,'$value','$abv')";
                 $result = mysqli_query($link,$sql);
             }
