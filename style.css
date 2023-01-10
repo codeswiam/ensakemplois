@@ -1,5 +1,7 @@
-
-
+img{
+    border: 1px solid black;
+    border-radius: 5px;
+}
 
 li{
 	display: inline-block;
@@ -106,9 +108,4 @@ td{
 
 label{
     display: block;
-}
-img{
-    border: 1px solid black;
-    border-radius: 5px;
-    margin-right: 250px;
 }

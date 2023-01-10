@@ -26,8 +26,7 @@
 
     <nav class="menu"> 
         <ul>
-        <img src="images/logo1.png" size="10px">
-            <li>logo ensa</li>
+            <li><img src="images/logo1.png" width="90px" height="30px"></li>
             
             <li><a href="acceuil.php">Acceuil</a></li>
             <?php
