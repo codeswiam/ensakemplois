@@ -103,9 +103,9 @@ if(isset($_POST['envoyer'])){
         }
         $ph_name=$nom_photo;}
     else{
-        $ph_name="inconnu.jpeg";}
+        $ph_name="1.jpeg";}
     $sql="insert into prof (NOM,PRENOM,mdp,email,photo) 
-values ('$pass','$nom','$prenom','$email','$ph_name')";
+values ('$prenom','$nom','$pass','$email','$ph_name')";
     $resultat=mysqli_query($link,$sql);
     if ($resultat==true) {
         header("Location: professeur.php");

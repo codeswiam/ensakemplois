@@ -57,7 +57,7 @@ $sql="select * from prof where idprof='".$_SESSION['prof']."'";
 $result=mysqli_query($link,$sql);
 $data= mysqli_fetch_assoc($result);
 ?>
-<?php echo"<p><img src=photo/".$data["photo"]."></p>"; ?>
+<?php echo"<p><img src=images/".$data["photo"]."></p>"; ?>
 <h3>Nom</h3>
 <?php  echo $data["nom"];?>
 <h3>Prenom</h3>
