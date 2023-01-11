@@ -56,23 +56,20 @@
     ?>
     <section class="card">
         <aside>
-    <?php echo"<p><img  id='image' src=images/".$data["photo"]."></p>"; ?></aside>
+            <?php echo"<p><img src=images/".$data["photo"]."></p>"; ?>
+        </aside>
         <article>
-    <span>Nom :
-            <?php  echo $data["nom"];?>
-    </span>
-            <span>Prenom :
-    <?php echo $data["prenom"]; ?>
-            </span>
-</br>
-            <span>Email:
-           <?php echo $data["email"];?>
-            </span>
-</br>
+            <p><span>Nom:</span>
+                <?php  echo $data["nom"];?></p>
+            <p><span>Prenom:</span>
+                <?php echo $data["prenom"]; ?></p>
+            <p><span>Email:</span>
+                <?php echo $data["email"];?></p>
         </article>
-    
-            </section>
-            <form method="POST" action="#" id="form2">
+
+    </section>
+
+    <form method="POST" action="#" id="form2">
     <input type="submit" value="Se déconnecter" name="deconnecter"> 
             </form>  
 

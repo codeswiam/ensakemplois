@@ -78,6 +78,8 @@
         }
     </script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
+
 </head>
 <body>
 
@@ -118,7 +120,7 @@
             $fil = $_COOKIE['semfi'];
             ?>
                 <h1> Programmer un rattrapage </h1>
-                <form action="#" method="post" name="form">
+                <form action="#" method="post" name="form" class="myform">
 
                     <div>
                         <label for="jour">Jour:</label>

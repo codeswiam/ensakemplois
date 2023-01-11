@@ -15,9 +15,10 @@ if (isset($_GET["semestre"]) && $_GET["semestre"] != "S0") {
 </head>
 <body>
 <header>
+    <img src="images/emploi-du-temps.png" width="100" height="100" >
     <h2> bienvenue sur <span>EMPLOI ENSAK</span> </h2>
-<img src="images/cookie.jpg" width="900" height="500" id="ensak">
 </header>
+<img src="images/ensak.jpg" width="900" height="500" id="ensak">
 <section>
     <h4>Vous êtes ?</h4>
     <form action="#" method="POST" name="form">
@@ -45,3 +46,4 @@ if (isset($_POST['admin'])) {
         header("Location: seconnecter.php");
     }
 
+?>

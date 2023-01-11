@@ -70,6 +70,7 @@
         }
     </script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
 
@@ -128,7 +129,7 @@
                     <div id="forms">
                         <div id="modifemploi">
                             <!-- ajout / modification d'une séance-->
-                            <form action="#" method="post" name="form">
+                            <form action="#" method="post" name="form" class="myform">
                                 <h3> Ajouter ou Modifier une séance</h3>
 
                                 <div>

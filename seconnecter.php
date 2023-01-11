@@ -41,15 +41,15 @@
         </ul>
     </nav>
     
-    <form action="#" method="post" name="form">
+    <form action="#" method="post" name="form" class="myform">
         <?php
         session_start();
         if ($_SESSION['session'] == "prof"){
-            echo "<h1>bienvenue dans l'espace professeur</h1>";
+            echo "<h1>Bienvenue Dans L'Espace Professeur</h1>";
             echo "<h4>connecter-vous a votre compte</h4>";
         }
             else if ($_SESSION['session'] == "admin"){
-                echo "<h1>bienvenue dans l'espace adminstrateur</h1>";
+                echo "<h1>Bienvenue Dans L'Espace Adminstrateur</h1>";
                 echo "<h4>connecter-vous a votre compte</h4>";
         }?>
 
@@ -97,7 +97,9 @@
                 } 
             }
             if (!$trouve){
-                echo "Les données que vous avez saisies sont incorrectes. Veuillez réessayer.";
+                echo "<font size=5 color=red>
+          Les données que vous avez saisies sont incorrectes. Veuillez réessayer.
+          </font>";
             }
         }
     ?>

@@ -51,7 +51,7 @@ if (!isset($_SESSION['prof'])){
     </ul>
 </nav>
 
-<a href="deconnexion.php"> Se déconnecter </a>
+<a href="deconnexion.php" class="link"> Se déconnecter </a>
 <h1>VOTRE PROFIL :</h1>
 
 <?php

@@ -51,6 +51,7 @@ h1{
 .sem{
     border: 2px solid black;
     text-align: center;
+    background-color: rgba(91, 160, 199, 0.42);
 }
 
 .emploi{
@@ -67,6 +68,7 @@ h1{
 
 .semestre, .salle{
     color: red;
+
 }
 
 .jour, .module, .prof{
@@ -79,7 +81,9 @@ h1{
 
 table{
     border-collapse: collapse;
-    width: 100%;
+    width: 98%;
+    margin-left: 1%;
+    background-color: #f1f1f1;
 }
 
 th{
@@ -98,7 +102,7 @@ td{
 #modifieremploi, #ajoutratt{
     width: 30%;
     position: relative;
-    left: 65%;
+    left: 35%;
 }
 
 #forms{
@@ -143,4 +147,3 @@ label{
     color: #007DFF;
     border: 1px solid #007DFF;
    }
-   

@@ -3,9 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="fe29177e-ce9c-426f-9a50-33d6455bc59c" name="Changes" comment="test3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acceuil.php" beforeDir="false" afterPath="$PROJECT_DIR$/acceuil.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locaux.php" beforeDir="false" afterPath="$PROJECT_DIR$/locaux.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modifieremploi.php" beforeDir="false" afterPath="$PROJECT_DIR$/modifieremploi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/profiladmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/profiladmin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/profilprof.php" beforeDir="false" afterPath="$PROJECT_DIR$/profilprof.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rattrapage.php" beforeDir="false" afterPath="$PROJECT_DIR$/rattrapage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seconnecter.php" beforeDir="false" afterPath="$PROJECT_DIR$/seconnecter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style2.css" beforeDir="false" afterPath="$PROJECT_DIR$/style2.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stylee.css" beforeDir="false" afterPath="$PROJECT_DIR$/stylee.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/welcome.php" beforeDir="false" afterPath="$PROJECT_DIR$/welcome.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +61,7 @@
       <updated>1673304933442</updated>
       <workItem from="1673304935822" duration="7611000" />
       <workItem from="1673346918071" duration="17506000" />
-      <workItem from="1673382398543" duration="5566000" />
+      <workItem from="1673382398543" duration="14369000" />
     </task>
     <task id="LOCAL-00001" summary="afficher prof et update profil prof">
       <created>1673314932322</created>
@@ -118,7 +126,21 @@
       <option name="project" value="LOCAL" />
       <updated>1673366770791</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="test3">
+      <created>1673389010086</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1673389010086</updated>
+    </task>
+    <task id="LOCAL-00011" summary="test3">
+      <created>1673389056011</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1673389056011</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

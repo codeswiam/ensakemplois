@@ -49,7 +49,7 @@
     <h1>Locaux</h1>
 
     <!-- AJOUTER BATIMENT -->
-    <form action="#" method="post">
+    <form action="#" method="post" class="myform">
         <h3>Ajouter Batiment</h3>
 
         <div>
@@ -62,7 +62,7 @@
 
     <!-- AJOUTER SALLE  -->
     <h3>Ajouter Salle</h3> 
-    <form action="#" method="post">
+    <form action="#" method="post" class="myform">
         <div>
             <label for="bat" >Batiment</label>
             <select name="bat" id="">
