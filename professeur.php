@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title>Professeurs</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
     <nav class="menu"> 
@@ -46,7 +47,7 @@
     </nav>
 
     <h1>PROFESSEURS</h1>
-    <a href="ajouterprof.php"> Ajouter un professeur </a>
+    <p><a href="ajouterprof.php" class="bouton"> Ajouter un professeur </a></p>
 
 
 

@@ -79,7 +79,6 @@
     </script>
     <link rel="stylesheet" href="stylee.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="stylee.css">
 
 </head>
 <body>
@@ -328,6 +327,7 @@
                                 } else {
                                     echo "<td>";
                                     // affichage seance
+                                    $i = 1;
                                     while ($data= mysqli_fetch_assoc($res5)) {
                                         $seance = $data['idseance'];
                                         $salle = $data['idsalle'];
@@ -362,15 +362,15 @@
                                             where seancetd.groupetd = groupetd.groupetd
                                             and idseance='".$seance."'";
                                             $res7 = mysqli_query($link, $sql7) or die("Erreur selection seancetd");
-                                            $rows = mysqli_num_rows($res7);
+                                            $sqlgrp = "select groupetd from groupetd where idsem_fi='".$fil."'";
+                                            $resgrp = mysqli_query($link, $sqlgrp) or die("Erreur selection grptd de la filiere");
+                                            $rows = mysqli_num_rows($resgrp);
                                             if ($rows > 1){
-                                                $i = 1;
+                                                
                                                 echo "(";
                                                 while ($grp = mysqli_fetch_assoc($res7)) {
                                                     echo $grp['nomgrp'];
-                                                    if ($i != $rows)
-                                                        echo " + ";
-                                                    $i++;                       
+                                                                          
                                                 }
                                                 echo ")"; 
                                             }
@@ -382,15 +382,15 @@
                                             where seancetp.groupetp = groupetp.groupetp
                                             and idseance='".$seance."'";
                                             $res8 = mysqli_query($link, $sql8) or die("Erreur selection seancetd");
-                                            $rows = mysqli_num_rows($res8);
+                                            $sqlgrp = "select groupetp from groupetp where idsem_fi='".$fil."'";
+                                            $resgrp = mysqli_query($link, $sqlgrp) or die("Erreur selection grptp de la filiere");
+                                            $rows = mysqli_num_rows($resgrp);
                                             if ($rows > 1){
-                                                $i = 1;
+                                                
                                                 echo "(";
                                                 while ($grp = mysqli_fetch_assoc($res8)) {
                                                     echo $grp['nomgrp'];
-                                                    if ($i != $rows)
-                                                        echo " + ";
-                                                    $i++;                       
+                                                                          
                                                 }
                                                 echo ")"; 
                                             }
@@ -418,9 +418,10 @@
                                             }
                                             echo ")</div>";             
                                         }
-                                        if ($nbr > 1){
+                                        if ($nbr > 1 and $i != $nbr){
                                             echo "<div> / </div>";
                                         }
+                                        $i++;
                                     }
                                     echo "</td>";
                                 }
@@ -434,7 +435,7 @@
         }
         
     ?>
-    <a href="acceuil.php" id="retour">Retour</a>
+    <a href="acceuil.php" class="bouton">Retour</a>
     
     <?php
         if(isset($_POST['ajoutratt']))

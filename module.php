@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title>Module</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
     <nav class="menu"> 
@@ -44,8 +45,8 @@
             ?>
         </ul>
     </nav>
-    <h1>Modules 2</h1>
-    <a href="ajoutermodule.php">Ajouter Module</a> 
+    <h1>Modules</h1>
+    <p><a href="ajoutermodule.php" class="bouton">Ajouter Module</a></p>
     <table border=1>
         <tr>
             <th>Semestre</th>      

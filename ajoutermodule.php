@@ -151,6 +151,6 @@
             }   
         }
     ?>
-    <a href="module.php">Retour</a>
+    <a href="module.php" class="bouton">Retour</a>
 </body>
 

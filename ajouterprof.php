@@ -68,7 +68,7 @@
     </br>
 
 
-    <input type="submit" name="envoyer" value="ajouter"></br>
+    <input type="submit" name="envoyer" value="Ajouter"></br>
 </form>
 <?php
 if(isset($_POST['envoyer'])){
@@ -116,7 +116,7 @@ values ('$prenom','$nom','$pass','$email','$ph_name')";
         echo "Erreur lors de la création de votre compte";
     }}
 ?>
-<a href="professeur.php" id="retour">Retour</a>
+<a href="professeur.php" class="bouton">Retour</a>
 
 </body>
 </html>

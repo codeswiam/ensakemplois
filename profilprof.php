@@ -51,7 +51,7 @@ if (!isset($_SESSION['prof'])){
     </ul>
 </nav>
 
-<a href="deconnexion.php" class="link"> Se déconnecter </a>
+<a href="deconnexion.php" class="bouton"> Se déconnecter </a>
 <h1>VOTRE PROFIL :</h1>
 
 <?php
@@ -77,7 +77,7 @@ $data= mysqli_fetch_assoc($result);
 
 
 
-<button onclick="myFunction()" class="button">modifier le profil</button>
+<button onclick="myFunction()" class="bouton">modifier le profil</button>
 <script>
     function myFunction() {
         var section = document.getElementById("my-section");

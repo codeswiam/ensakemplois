@@ -47,55 +47,60 @@
         </ul>
     </nav>
     <h1>Locaux</h1>
+    <div class="forms">
+        <div class="formsub">
+            <!-- AJOUTER BATIMENT -->
+            <form action="#" method="post" class="myform">
+                <h3>Ajouter Batiment</h3>
 
-    <!-- AJOUTER BATIMENT -->
-    <form action="#" method="post" class="myform">
-        <h3>Ajouter Batiment</h3>
-
-        <div>
-            <label for="batiment" >Batiment</label>
-            <input type="text" name="batiment" required>
+                <div>
+                    <label for="batiment" >Batiment</label>
+                    <input type="text" name="batiment" required>
+                </div>
+                
+                <input type="submit" value="Ajouter" name="ajoutbat" >
+            </form>
         </div>
-        
-        <input type="submit" value="Ajouter" name="ajoutbat" >
-    </form>
+        <div class="formsub">
+            <!-- AJOUTER SALLE  -->
+             
+            <form action="#" method="post" class="myform">
+                <h3>Ajouter Salle</h3>
+                <div>
+                    <label for="bat" >Batiment</label>
+                    <select name="bat" id="">
+                        <?php
+                            $sql = "select * from batiment";
+                            $result = mysqli_query($link, $sql) or die(mysqli_error($link));
+                            while ($data= mysqli_fetch_assoc($result)) {
+                                $batiment = $data['nombatiment'];
+                                echo "<option value='".$batiment."'>".$batiment."</option>";
+                            }
+                        ?>    
+                    </select>
+                </div>
 
-    <!-- AJOUTER SALLE  -->
-    <h3>Ajouter Salle</h3> 
-    <form action="#" method="post" class="myform">
-        <div>
-            <label for="bat" >Batiment</label>
-            <select name="bat" id="">
-                <?php
-                    $sql = "select * from batiment";
-                    $result = mysqli_query($link, $sql) or die(mysqli_error($link));
-                    while ($data= mysqli_fetch_assoc($result)) {
-                        $batiment = $data['nombatiment'];
-                        echo "<option value='".$batiment."'>".$batiment."</option>";
-                    }
-                ?>    
-            </select>
+                <div>
+                    <label for="salle">Salle</label>
+                    <input type="number" name="salle" required>
+                </div>
+
+                <div>
+                    <label for="cap" >Capacité d'acceuil</label>
+                    <input type="number" name="cap" required>
+                </div>
+
+                <input type="submit" value="Ajouter" name="ajoutsalle" > 
+            </form>
         </div>
-
-        <div>
-            <label for="salle">Salle</label>
-            <input type="number" name="salle" required>
-        </div>
-
-        <div>
-            <label for="cap" >Capacité d'acceuil</label>
-            <input type="number" name="cap" required>
-        </div>
-
-        <input type="submit" value="Ajouter" name="ajoutsalle" > 
-    </form>
+    </div>
                 </br></br>
     <table border=1>
         <tr>
             <th>Batiment</th>
             <th>Salle</th>
             <th>Capacité d'acceuil</th>
-            <th>Taux d'occupation </th>
+            <th>Taux d'occupation</th>
         </tr>
         <?php
             $sql1 = "SELECT * FROM batiment";
@@ -125,7 +130,7 @@
                         } else {
                             while ($data = mysqli_fetch_assoc($res4)){
                                 $nbrheures = $data['nbr']*2;
-                                echo "<td>".$nbrheures." </td></tr>";
+                                echo "<td>".$nbrheures."h</td></tr>";
                             }
                         }     
                     }

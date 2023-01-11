@@ -45,8 +45,8 @@ body{
 }
 
    Form {
-    width:98%;
-    padding: 30px;
+    padding: 3%;
+    margin: 2%;
     border: 1px solid #f1f1f1;
     background: #fff;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -63,7 +63,6 @@ body{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
-    display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
    }
@@ -79,7 +78,7 @@ body{
     background-color: #007DFF;
     color: white;
     padding: 14px 20px;
-
+    background-color: #007DFF;
     border: none;
     width: 100%;
     text-decoration: none;
@@ -105,7 +104,7 @@ margin-right: 88%;
     border: none;
     width: 100%;
    }
-   input[type=submit],.button:hover {
+   input[type=submit]:hover,.button:hover {
     background-color: white;
     color: #007DFF;
     border: 1px solid #007DFF;
@@ -163,19 +162,15 @@ span{
     height:60px;
 }
 .myform {
-    margin-left: 15%;
-    width:68%;
-    padding: 30px;
     border: 1px solid #f1f1f1;
     background: #fff;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-    text-align: left;
+    text-align: center;
 }
-.myform label,h4{
+.myform label,h4, label{
 font-weight: bold;
     text-transform: capitalize;
 }
 h1{
-    margin-top: 60px;
     text-transform: capitalize;
 }

@@ -81,7 +81,7 @@
             ?>
         </select><br>
 
-        <label >Nom de la Filière</label></br>
+        <label >Filière</label></br>
         <select name="filiere" >
             <option value="0"> Sélectionner </option>
             <?php
@@ -99,13 +99,13 @@
             ?>
             </select><br>
 
-        <label >Nom du grp </label></br>
+        <label >Nom du groupe</label></br>
         <input type="text" name="nom" required></br>
 
         <input type="submit" name="ajoutertp" value="Ajouter Groupe">
 
     </form>
-    <a href="filiere.php">Retour</a>
+    <a href="filiere.php" class="bouton">Retour</a>
 
     <?php
         if (isset($_POST['ajoutertp'])){

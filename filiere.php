@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title>Filières</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylee.css">
 </head>
 <body>
     <nav class="menu"> 
@@ -48,9 +49,9 @@
     <h1>FILIÈRES</h1>
    
     <ul> 
-        <li><a href="ajouterfiliere.php">Ajouter filière</a></li>
-        <li><a href="ajoutertd.php">Ajouter Groupe TD</a></li>
-        <li><a href="ajoutertp.php">Ajouter Groupe TP</a></li>                                  
+        <li><a href="ajouterfiliere.php" class="bouton">Ajouter filière</a></li>
+        <li><a href="ajoutertd.php" class="bouton">Ajouter Groupe TD</a></li>
+        <li><a href="ajoutertp.php" class="bouton">Ajouter Groupe TP</a></li>                                  
     </ul>                                    
             
     <?php

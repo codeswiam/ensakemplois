@@ -126,8 +126,8 @@
                     while ($filiere= mysqli_fetch_assoc($res2)) {
                         $nomfiliere = $filiere['nomfiliere'];
     ?>
-                    <div id="forms">
-                        <div id="modifemploi">
+                    <div class="forms">
+                        <div class="formsub">
                             <!-- ajout / modification d'une séance-->
                             <form action="#" method="post" name="form" class="myform">
                                 <h3> Ajouter ou Modifier une séance</h3>
@@ -285,7 +285,7 @@
 
                             </form>
                         </div>
-                        <div id="suppression">
+                        <div class="formsub">
                             <!-- suppression d'une séance-->
                             <form action="#" method="post">
                                 <h3> Supprimer une séance</h3>
@@ -440,7 +440,7 @@
                                                 $sqlgrp = "select groupetp from groupetp where idsem_fi='".$fil."'";
                                                 $resgrp = mysqli_query($link, $sqlgrp) or die("Erreur selection grptp de la filiere");
                                                 $rows = mysqli_num_rows($resgrp);
-                                                $rows = mysqli_num_rows($resgrp);
+                                                
                                                 if ($rows > 1){
                                                     echo "(";
                                                     while ($grp = mysqli_fetch_assoc($res8)) {
@@ -489,7 +489,7 @@
         }
         
     ?>
-    <a href="acceuil.php">Retour</a>
+    <a href="acceuil.php" class="bouton" >Retour</a>
     <?php
         if(isset($_POST['ajouter']))
         {

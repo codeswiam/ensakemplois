@@ -86,6 +86,6 @@
             }
         }
     ?>
-    <a href="filiere.php">Retour</a>
+    <a href="filiere.php" class="bouton">Retour</a>
 </body>
 </html>

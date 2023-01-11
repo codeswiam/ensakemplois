@@ -46,11 +46,11 @@
         session_start();
         if ($_SESSION['session'] == "prof"){
             echo "<h1>Bienvenue Dans L'Espace Professeur</h1>";
-            echo "<h4>Connecter-vous à votre compte</h4>";
+            echo "<h4>Connectez-vous à votre compte</h4>";
         }
             else if ($_SESSION['session'] == "admin"){
                 echo "<h1>Bienvenue Dans L'Espace Administrateur</h1>";
-                echo "<h4>connecter-vous à votre compte</h4>";
+                echo "<h4>connectez-vous à votre compte</h4>";
         }?>
 
 
