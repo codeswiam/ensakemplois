@@ -44,8 +44,8 @@
             ?>
         </ul>
     </nav>
-    <h1>Modules</h1>
-    
+    <h1>Modules 2</h1>
+    <a href="ajoutermodule.php">Ajouter Module</a> 
     <table border=1>
         <tr>
             <th>Semestre</th>      
@@ -71,7 +71,7 @@
                     echo "<td rowspan='".$nummod."'>".$semestre['nomsem']."</td>";
                     while($module=mysqli_fetch_assoc($res1)){
                         $mod=$module['idmod'];
-                        echo "<td>".$module['nommodule']."</td>";
+                        echo "<td>".htmlspecialchars($module['nommodule'])."</td>";
                         $sql4 = "select nom from prof, profmod where prof.idprof = profmod.idprof and idmod = '".$mod."'";
                         $res4=mysqli_query($link,$sql4);
                         $numprofs = mysqli_num_rows($res4);
@@ -95,8 +95,4 @@
             }
         ?>
     </table>
-    
-  
-    <br>
-    <a href="ajoutermodule.php" >Ajouter Module</a> 
-        </body>
+</body>

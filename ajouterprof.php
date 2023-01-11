@@ -81,7 +81,6 @@ if(isset($_POST['envoyer'])){
 
     echo"<br>";
 
-    print "<a href='professeur.php'>Retour page professeur</a>";
     if(isset($_FILES['fichier']) and $_FILES['fichier']['error']==0){
         echo'done';
         $dossier = 'images/'; // dossier où sera déplacé le fichier
@@ -105,9 +104,9 @@ if(isset($_POST['envoyer'])){
         }
         $ph_name=$nom_photo;}
     else{
-        $ph_name="inconnu.jpeg";}
+        $ph_name="1.jpeg";}
     $sql="insert into prof (NOM,PRENOM,mdp,email,photo) 
-values ('$pass','$nom','$prenom','$email','$ph_name')";
+values ('$prenom','$nom','$pass','$email','$ph_name')";
     $resultat=mysqli_query($link,$sql);
     if ($resultat==true) {
         header("Location: professeur.php");
