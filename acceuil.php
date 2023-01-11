@@ -56,14 +56,8 @@
             ?>
         </ul>
     </nav>
-    <?php
-    if (!isset($_SESSION['admin']) && !isset($_SESSION['prof']))
-    {
-    ?>
     <h1> Organisation des enseignements </h1>
-        <?php
-    }
-    ?>
+    
     <?php
         if (isset($_SESSION['admin']))
         {
@@ -113,7 +107,6 @@
                     <input type="submit" name="emploi" value="Créer/Modifier Emploi">
                 </form>
             </div>
-            <h1> Organisation des enseignements </h1>
     <?php
         }
     ?>
@@ -151,7 +144,6 @@
                     <input type="submit" name="ratt" value="Programmer rattrapage">
                 </form>
             </div>
-            <h1> Organisation des enseignements </h1>
 
             <?php
         }

@@ -46,6 +46,7 @@
     </nav>
 
     <h1>PROFESSEURS</h1>
+    <a href="ajouterprof.php"> Ajouter un professeur </a>
 
 
 
@@ -73,5 +74,5 @@
 </body>
 <br>
 </br>
-<a href="ajouterprof.php"> Ajouter un professeur </a>
+
 </html>
