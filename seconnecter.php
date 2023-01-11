@@ -61,7 +61,7 @@
         
         <div>
             <label for="mdp"> Mot de Passe:</label> 
-            <input type="text" name="mdp" id="" required>
+            <input type="password" name="mdp" id="" required>
         </div>
         
         <input type="submit" value="Connexion" name="connexion">
